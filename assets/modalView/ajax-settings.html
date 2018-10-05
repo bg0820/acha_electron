@@ -1,0 +1,52 @@
+<div class="modal_title_area">
+	<a href="javascript:close()"><span id="close" class="modal_close">&times;</span></a>
+	<div id="modalTitleStr" class="modal_title_str">아남타워 - 매장 관리</div>
+</div>
+<hr>
+<p class="sectionTitle">매장 설정</p>
+<div class="store_setting_section">
+	<div class="leftSection">
+		<input type="text" id="storeName" maxlength="20" placeholder="매장 이름 입력">
+	</div>
+
+	<div class="rightSection">
+		<input type="text" id="storeTellNumber" maxlength="13" placeholder="매장 연락처, (-) 없이 입력해주세요.">
+	</div>
+
+</div>
+
+<hr class="sectionHr">
+<p class="sectionTitle">알림톡 설정</p>
+<div class="alarm_talk_section">
+	<div class="leftSection">
+		<div class="alarm_talk_section">
+			<div class="wrap">
+				<div class="canvas_wrap">
+					<canvas id="canvas" width="150px" height="150px"></canvas>
+					<span id="percentStr"></span>
+				</div>
+			</div>
+			<div class="flex_half_section flexcenter">
+				<div class="alarm_talk_info">
+					<p>
+						<span>알림톡</span>
+					</p>
+					<p class="num">
+						<span class="highlight">500</span>
+						/
+						<span>6,000</span>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="rightSection" style="padding: 0px 15px 15px 15px;">
+		<div class="talk_refresh_label">알림톡 발송 주기</div>
+		<div class="talk_refresh_select_box">
+			
+		</div>
+	</div>
+</div>
+
+<a href="javascript:cancel();"><div class="button cancel">취소</div></a>
+<a href="javascript:reserv();"><div class="button">수정</div></a>

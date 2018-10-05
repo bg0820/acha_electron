@@ -1,0 +1,143 @@
+ <!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<title>아차! : 호율적인 예약관리의 시작</title>
+        <!-- CSS 영역-->
+        <!-- Font CSS -->
+		<link href="assets/font/font.css" rel="stylesheet">
+		<!-- Index CSS -->
+		<link href="assets/css/index.css" rel="stylesheet">
+		<link href="assets/css/common.css" rel="stylesheet">
+		<link href="assets/css/calendar.css" rel="stylesheet">
+		<!-- Icon CSS -->
+		<link href="assets/css/icon.css" rel="stylesheet">
+		<!-- Modal CSS -->
+		<link href="assets/css/modal.css" rel="stylesheet">
+
+		<!-- JS 영역-->
+		<!-- JQuery JS -->
+		<script>window.$ = window.jQuery = require('./assets/js/jquery-3.3.1.min.js');</script>
+		<script src="assets/js/socket.io.js"></script>
+		<!-- Custom JS -->
+		<script src="assets/js/ipc.js"></script>
+		<script src="assets/js/common.js"></script>
+		<script src="assets/js/index.js"></script>
+		<script src="assets/js/modal.js"></script>
+		<script src="assets/js/socket.js"></script>
+		<script src="assets/js/calendar.js"></script>
+	</head>
+	<body>
+		<div id='addReservBtn' class="addReservBtn"><div class="icon_wrap"><span class='i_plus'></span></div></div>
+		<div id="modalBackground" class="popupBackground reserv">
+			<div id="modal" class="modalPopUp">
+			</div>
+		</div>
+
+		<!-- 모달창 배경 클릭시 사라지게 하기 위한 백그라운드 -->
+		<div id="clickBackground" class="popupBackground">
+			<!-- 알림창 영역 -->
+			<div id="alertModal" class="notificaitonModal"></div>
+
+			<!-- 컨텍스트 메뉴 영역 -->
+			<ul id="contextMenu" class="contextMenu"></ul>
+		</div>
+
+		<div class="subMenu">
+			<div class="header">
+				<div class="storeNameArea">
+					<div class="center">
+						<span id="storeName" class="storeName"></span>
+					</div>
+				</div>
+			</div>
+
+			<div class="nameList">
+				<table id="nameList" class="nameListTable" cellpadding=0 cellspacing=0></table>
+			</div>
+		</div>
+		<div class="content">
+			<div class="headerContainer">
+				<div class="workArea">
+					<div class="center">
+						<div class="left_icon_area">
+							<div class="icon_wrap">
+								<span id='search' class="searchIcon"></span>
+							</div>
+						</div>
+
+						<div class="dateArea">
+							<a href="#" class="arrowLeft" onclick="prevMonth();"></a>
+							<a href="#" class="arrowRight" onclick="nextMonth();"></a>
+							<div id="dateStr" class="dateStr">
+								1970년 01월 01일 (목)
+							</div>
+						</div>
+
+						<div class="right_icon_area">
+							<div class="icon_wrap">
+								<span id='settings' class="icon_setting"></span>
+							</div>
+							<div  class="icon_wrap">
+								<i id='noti' class=""></i> <!-- notification -->
+								<span id='alert' class="alert"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="timeBar" class="timeBar">
+					<div class="cover">
+						<div id="currentTimeHeader" style="margin-left: 0px;">
+						</div>
+					</div>
+
+					<table class="timeBarTable" cellpadding=0 cellspacing=0>
+						<tr>
+							<td>오전 0시</td>
+							<td>오전 1시</td>
+							<td>오전 2시</td>
+							<td>오전 3시</td>
+							<td>오전 4시</td>
+							<td>오전 5시</td>
+							<td>오전 6시</td>
+							<td>오전 7시</td>
+							<td>오전 8시</td>
+							<td>오전 9시</td>
+							<td>오전 10시</td>
+							<td>오전 11시</td>
+							<td>오전 12시</td>
+							<td>오후 1시</td>
+							<td>오후 2시</td>
+							<td>오후 3시</td>
+							<td>오후 4시</td>
+							<td>오후 5시</td>
+							<td>오후 6시</td>
+							<td>오후 7시</td>
+							<td>오후 8시</td>
+							<td>오후 9시</td>
+							<td>오후 10시</td>
+							<td class='last'>오후 11시</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+
+			<div id="reservTimeScroll" class="reservTimeScroll">
+				<a href="javascript:left();" class="leftMoveBtn"><i class="arrowLeft"></i></a>
+				<a href="javascript:right();" class="rightMoveBtn"><i class="arrowRight"></i></a>
+
+				<div id="currentTime" style="margin-left: 4.5px;"></div>
+				<table id="reservTimeTable" class="reservTimeTable" cellpadding=0 cellspacing=0>
+
+				</table>
+			</div>
+
+			<div class="tableController">
+				<div class="tableLeft">
+				</div>
+			</div>
+
+		</div>
+  </body>
+</html>

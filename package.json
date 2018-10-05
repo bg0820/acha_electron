@@ -1,0 +1,28 @@
+{
+  "name": "acha",
+  "version": "1.1.0",
+  "description": "아차 매장용 관리 프로그램",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-packager . ElectronPJ"
+  },
+  "repository": "https://github.com/electron/electron-quick-start",
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo"
+  ],
+  "author": "bg0820",
+  "license": "",
+  "devDependencies": {
+    "electron": "^2.0.0",
+    "electron-builder": "^20.28.4"
+  },
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "sqlite3": "^4.0.2"
+  }
+}

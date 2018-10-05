@@ -1,0 +1,654 @@
+
+/* 모달 팝업창 */
+.modalPopUp {
+	position: relative;
+	width: 80%;
+	background: #fff;
+	box-shadow: 0px 0px 20px rgba(0,0,0,0.3);
+}
+
+.popupBackground {
+	position: fixed;
+	display: none;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0);
+	z-index: 100;
+}
+
+.popupBackground.reserv {
+	background: rgba(0, 0, 0, 0.3);
+	align-items: center;
+	justify-content: center;
+}
+
+.contextMenu {
+	position: absolute;
+    display: none;
+	background: #fff;
+	width: 200px;
+	border: 1px solid #bebebe;
+    border-radius: .2em;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .5);
+	list-style: none;
+	z-index: 2;
+}
+
+.menuItem {
+	box-sizing: content-box;
+	font-weight: 500;
+	font-size: 1.3em;
+	padding: 0.5em 0.5em;
+    color: #545454;
+	user-select: none;
+    background-color: #fff;
+	cursor: pointer;
+}
+
+.currentStatus {
+	box-sizing: content-box;
+	font-weight: 500;
+	font-size: 1.1em;
+	padding: 0.2em 0.2em;
+    color: #545454;
+	user-select: none;
+    background-color: #fff;
+}
+
+.menuItem.edit {
+	background: url(../img/edit.svg) no-repeat 5%;
+	background-size: 15%;
+	padding: 0.5em 0em 0.5em 2em;
+}
+
+.menuItem.edit:hover
+{
+	background: url(../img/edit-white.svg) no-repeat 5%;
+	background-size: 15%;
+    color: white;
+    background-color: #2980b9;
+}
+
+.menuItem:hover {
+    color: white;
+    background-color: #2980b9;
+}
+
+.menuItemLine {
+	padding: 0;
+    margin: .2em 0;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+
+/**********************************************************************************
+------ notification 영역 ------------------------------------------------------------
+**********************************************************************************/
+
+.notificaitonModal {
+	position: absolute;
+	display: none;
+	/*top: 40px;*/
+	right: 0;
+	background: #fff;
+	width: 600px;
+    height: 100%;
+	box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+	z-index: 100;
+
+	border: 1px solid #ccc;
+	/*border-radius: 10px;*/
+}
+
+.noti_title_area {
+	padding: 10px;
+	border-bottom: 1px solid #ccc;
+}
+
+.alert_sort {background-color: #fbfbfb;height: 48px;}
+
+.alert_sort ul {width: 100%;height: 100%;border-bottom: 1px solid #ccc;list-style: none;list-style-type: none;}
+
+.alert_sort li {width: 80px;height: 100%;float: left;position: relative;text-align: center;line-height: 3.3;font-size: .9em;font-weight: 500;color: #666;user-select: none;cursor: pointer;}
+
+.alert_sort li.select {border-bottom: 3px solid #ff7860;}
+
+.alert_list {position: relative; width: 100%; height: calc(100% - 105px); white-space: nowrap; overflow-y: scroll; padding: 0 20px 20px; }
+
+.alert_list_item .reserved { background-color: #ff7860; }
+.alert_list_item .usercancel { background-color: #ccc; }
+.alert_list_item .notice { background-color: #4a4a4a; }
+
+.alert_list_item.disabled { display: none; }
+
+.alert_list_item { width: 100%; height: auto; background-color: #fff; border: 1px solid #ccc; border-radius: 5px; margin-top: 20px; }
+
+.alert_list_item .alert_top {
+	background-color: #eee;
+    height: 30px;
+    width: 100%;
+    font-size: .85em;
+	font-weight: 500;
+    line-height: 2.2;
+    padding-right: 10px;
+
+    border-bottom: 1px solid #ccc;
+}
+
+.alert_list_item .time {
+	padding-left: 10px;
+	color: #999;
+}
+
+.alert_content {
+	display: flex;
+	flex-direction: row;
+	padding: 10px 20px;
+}
+
+.alert_content .alert_state {
+	width: 95px;
+	height: 38px;
+	color: #fff;
+	font-weight: 500;
+	border-radius: 20px;
+
+}
+
+.alert_msg_area {
+	margin-left: 15px;
+}
+.alert_msg {
+	display:flex;
+	flex-direction: row;
+}
+
+.alert_msg .content_main {
+	font-size: 1.2em;
+}
+
+.alert_msg .remain_day {
+	width: 65px;
+	height: 35px;
+	font-size: 1em;
+	background-color: #4a4a4a;
+    display: inline-block;
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+    line-height: 2;
+    border-radius: 5px;
+}
+
+.alert_msg .reserv_name_str {
+	color: #4a4a4a;
+
+	font-size: 1.2em;
+	line-height: 1.8;
+}
+
+.alert_msg .reserv_phoneNumber {
+	color: #4a4a4a;
+	margin-left: 10px;
+	font-size: 1.2em;
+	line-height: 1.8;
+}
+
+.alert_msg_detail {
+	display:flex;
+	flex-direction: row;
+    padding-top: 5px;
+}
+
+.alert_msg_detail .content_subject {
+	font-size: .9em;
+	color: #999;
+}
+
+.alert_msg_detail .reserv_time, .alert_msg_detail .reserv_number, .alert_msg_detail .position_name {
+	font-size: .9em;
+	margin-right: 10px;
+	color: #999;
+}
+.alert_msg_detail .reserv_time {
+	padding-right: 10px;
+	border-right: 2px solid #ccc;
+}
+
+.alert_msg_detail .reserv_number {
+	padding-right: 10px;
+	border-right: 2px solid #ccc;
+}
+
+
+
+/**********************************************************************************
+------ setting 영역 ------------------------------------------------------------
+**********************************************************************************/
+
+.canvas_wrap {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+.canvas_wrap #percentStr {
+	display: block;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	font-size: 1.5em;
+	transform: translate(-50%, -50%);
+	color: #ff7860;
+}
+
+.canvas_wrap #percentStr:after {
+	content: '%';
+}
+
+.alarm_talk_section, .store_setting_section {
+	display: flex;
+	flex-direction: row;
+}
+.alarm_talk_info {
+	font-size: 1.2em;
+	color: #545454;
+}
+
+.alarm_talk_info .num {
+	font-size: 1.4em;
+	font-weight: 700;
+}
+.alarm_talk_info .highlight {
+	color: #ff7860;
+}
+
+.talk_refresh_label {
+	color: #545454;
+	margin-bottom: 10px;
+}
+
+.talk_refresh_select_box {
+	position: relative;
+	border: 1px solid #ccc;
+	height: 120px;
+}
+
+/**********************************************************************************
+------ modal 영역 ------------------------------------------------------------
+**********************************************************************************/
+
+.modal_title_area {
+	padding: 15px;
+}
+
+.userInfoSection, .reservSection {
+	display: flex;
+	flex-direction: row;
+}
+
+.leftSection, .rightSection {
+	padding: 15px;
+	flex: 1;
+}
+
+.sectionTitle {
+	position: relative;
+	display: block;
+	color: #545454;
+	font-size: 1em;
+	padding: 15px 0px 0px 15px;
+}
+
+.modal_title_str {
+	color: #545454;
+	font-size: 18pt;
+}
+
+hr {
+	border: 0;
+	border-top: 1px solid #ccc;
+}
+
+input, select, textarea {
+	box-sizing: border-box;
+	text-align: left;
+	vertical-align: middle;
+	height: 50px;
+	width: 100%;
+	background: #fff;
+	font-size: 1.0em;
+	color: #545454;
+	margin-bottom: 15px;
+	padding-left: 10px;
+	border: 1px solid #EBEBEB;
+	border-radius: 3px;
+}
+
+textarea {
+	position: relative;
+	box-sizing: border-box;
+	position: relative;
+	height: 100px;
+	padding: 10px;
+	resize: none;
+
+}
+
+.nonMargin {
+	margin-bottom: 0px;
+}
+
+input:focus, select:focus, textarea:focus {
+	outline: none;
+	border: 1px solid #EBEBEB;
+	border-color: #ff7860;
+	box-shadow: 0 0 2px #ff7860;
+}
+
+.infoBar {
+	position: relative;
+	height: 100%;
+	/*border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	background: #fbfbfb;
+	*/
+}
+.sectionHr {
+	/* margin: 10px 0px 10px 0px; */
+}
+
+.infoBar .contentPadding {
+	padding: 10px 0px 10px 0px;
+}
+
+.infoBar .infoMsg {
+	font-size: .8em;
+	padding-left: 1.5em;
+	color: #4F5D75;
+	margin-bottom: 5px;
+}
+
+.infoBar .statistics {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	height: 100%;
+}
+
+.statisticsCount {
+	position: relative;
+	flex: 1;
+	height: 100%;
+	text-align: center;
+	border-right: 1px solid #ccc;
+}
+
+.end { border-right: 0; }
+
+.infoBar span {
+	color: #666666;
+	font-size: 0.9em;
+}
+
+.storeReservStr, .storeVisitStr, .storeCancelStr, .storeNoshowStr
+{
+	display: block;
+	font-size: 2.3em !important;
+	font-weight: 800 !important;
+	color: #4a4a4a !important;
+	margin-top: 10px;
+}
+
+
+.totalReservStr, .totalNoshowStr {
+	font-size: 1.2em  !important;
+}
+
+.storeNoshowStr, .totalNoshowStr {
+	color: #FF5E5B !important;
+}
+
+.numberSelect {
+	width: 100%;
+	height: 50px;
+	margin-bottom: 15px;
+	border: 1px solid #EBEBEB;
+	border-radius: 3px;
+}
+
+.numberSelect .numberStr, .numberSelect .minus {
+	border-right: 1px solid #EBEBEB;
+}
+
+.numberSelect .minus, .numberSelect .plus, .numberSelect .numberStr {
+	float: left;
+	text-align: center;
+	width: 40%;
+	height: 100%;
+	font-size: 1.0em;
+	font-weight: bold;
+	color: #545454;
+}
+
+.numberSelect .minus, .numberSelect .plus {
+	/*background: #F5F5F5;*/
+	width: 30%;
+	color: #ff7860;
+	cursor: pointer;
+}
+
+.numberSelect .minus:hover, .numberSelect .plus:hover {
+	background: #ff7860;
+	color: white;
+}
+/*
+.minus:focus, .plus:focus {
+	background: #ff7860 !important;
+	color: white;
+}
+*/
+
+.timeSelect {
+	width: 100%;
+	height: 50px;
+	margin-bottom: 10px;
+	border: 1px solid #EBEBEB;
+	border-radius: 3px;
+}
+
+.timeSelect .timeAmPm, .timeSelect .timeHours, .timeSelect .timeMinute {
+	float: left;
+	text-align: center;
+	height: 100%;
+	line-height: 50px;
+	font-size: 15pt;
+	font-weight: bold;
+	color: #545454;
+	border-right: 1px solid #EBEBEB;
+}
+
+.timeSelect .timeAmPm {
+	background: #F5F5F5;
+	width: 20%;
+	height: 100%;
+}
+/*
+.timeSelect .timeHours, .timeSelect .timeMinute {
+	width: 40%;
+	height: 100%;
+}
+*/
+input[type='time'] {
+	float: left;
+	width: 100%;
+
+	/*border-bottom: 1px solid #EBEBEB;*/
+}
+
+.phoneMsg {
+	color: red;
+	padding-left: 5px;
+	padding-bottom: 5px;
+}
+
+
+.button {
+	float: left;
+	position: relative;
+	line-height: 70px;
+	vertical-align: middle;
+	text-align: center;
+	font-size: 14pt;
+	font-weight: bold;
+	width: 50%;
+	height: 70px;
+	background: #ff7860;
+	color: #fff;
+
+}
+
+.cancel {
+	background: #848484;
+}
+
+/* The Close Button */
+.modal_close {
+   color: #aaa;
+   float: right;
+   font-size: 28pt;
+   line-height: 100%;
+   font-weight: bold;
+}
+
+.modal_close:hover,
+.modal_close:focus {
+   color: black;
+   text-decoration: none;
+   cursor: pointer;
+}
+
+/* input Tpye Design */
+.managerInput {
+	background: url(../img/manager.svg) no-repeat 95% 50%;
+	cursor: pointer;
+}
+
+.dateInput {
+	background: url(../img/calendar.svg) no-repeat 95% 50%;
+	cursor: pointer;
+}
+
+.tableInput {
+	background: url(../img/table.svg) no-repeat 95% 50%;
+	cursor: pointer;
+}
+
+
+/* 선택 팝업 메뉴 */
+.seclectPopupMenu {
+	position: fixed;
+	display: none;
+    width: 520px;
+	top: 0;
+	left: 0;
+	z-index: 10000;
+	background: #fff;
+	border: 1px solid #ccc;
+
+}
+
+.selectBox {
+	width: auto;
+	min-height: 0px;
+	max-height: none;
+	height: 238px;
+	position: relative;
+	border: 0;
+	padding: .5em 1em;
+	background: #fbfbfb;
+	overflow: auto;
+}
+
+.seclectPopupMenu ul {
+	display: flex;
+	justify-content: flex-start;
+	flex-flow: row wrap;
+	-webkit-flex-flow: row wrap;
+	-ms-flex-flow: row wrap;
+	align-items: center;
+	list-style-type: none;
+	list-style: none;
+}
+
+.seclectPopupMenu li {
+	float: left;
+	background-color: #fff7ed;
+    width: 100px;
+    height: 48px;
+    margin: 10px;
+    font-size: 1.2em;
+    line-height: 2.4;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #ff7860;
+}
+
+/*
+.seclectPopupMenu li:hover {
+	background-color: #ff7860 !important;
+    color: #fff;
+}
+*/
+
+.tableSelect {
+	background-color: #ff7860 !important;
+    color: #fff;
+}
+
+.radio_group_box {
+	width: 100%;
+    height: 100%;
+    display: block;
+    position: relative;
+}
+.radio_ind_box {
+	width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+}
+
+input[type='radio'] {
+	display: none;
+}
+
+.popUpSelect {
+	width: 100%;
+	height: 60px;
+	line-height: 60px;
+}
+
+.statusSection {
+	position: relative;
+	padding: 10px;
+	margin-bottom: 10px;
+	width: 100%;
+	height: 150px;
+}
+
+
+.visitBtn { width: 50%; background: #00C867 }
+.noshowBtn { width: 50%; background: #E62723 }
+.storeCancelBtn { width: 50%; background: #8C8C8C }
+.userCancelBtn { width: 50%; background: #545454 }
+
+
+.disabledTable {
+	background: #545454 !important;
+	color: white !important;
+	border: 0 !important;
+}

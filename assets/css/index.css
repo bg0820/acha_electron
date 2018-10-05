@@ -1,0 +1,348 @@
+* {
+	margin: 0;
+	padding: 0;
+	-webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+	text-decoration: none;
+	font-style: normal;
+	user-select: none;
+}
+
+table, td, tr {
+	table-layout: fixed;
+	word-break: break-all;
+}
+
+html, body {
+	width: 100%;
+	min-width: 800px;
+	height: 100%;
+	overflow: hidden;
+}
+
+.modalCenter {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+
+
+/* 메인 중앙 정렬 */
+.center
+{
+	position: relative;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* 세로 중앙정렬 */
+.verticalCenter {
+	height: 100% !important;
+	display: flex !important;
+	align-items: center;
+	justify-content: center;
+}
+
+/* 예약 추가 버튼 */
+.addReservBtn {
+	display: inline-block;
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+	width: 4rem;
+	height: 4rem;
+    z-index: 100;
+	border-radius: 50%;
+	text-align: center;
+	background: #ff7860;
+	color: #ffffff;
+	box-shadow: 2px 2px 3px rgba(0,0,0,0.3);
+	cursor: pointer;
+}
+
+.plusImg {
+	width: 3rem;
+	height: 3rem;
+	margin-top: 0.5em;
+}
+
+/* 커버 */
+.cover {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
+/* 서브 메뉴 */
+.subMenu {
+	z-index: 20;
+	float: left;
+	position: relative;
+	width: 190px;
+	height: 100%;
+	box-shadow: 0px 0px 20px rgba(0,0,0,0.3);
+	/* 오른쪽 위에서 -> 왼쪽 밑  #ff7860 fdc06d */
+	background: linear-gradient(180deg, #ff7860 30%, #FF966D); /* linear-gradient(180deg, #436996 15%, #4A4679); */
+}
+
+.subMenu .header {
+	width: 100%;
+	height: 150px;
+}
+
+.subMenu .storeNameArea {
+	height: 100%;
+}
+
+.subMenu .BtnArea {
+	height: 55px;
+
+}
+
+.subMenu .header .storeName {
+	font-size: 30pt;
+	color: white;
+	text-align: center;
+}
+
+/* 이름 목록 */
+.nameList {
+	position: relative;
+	text-align: center;
+	width: 100%;
+	height: calc(100% - 150px);
+	white-space:nowrap;
+	overflow-y: hidden;
+}
+
+.nameListTable {
+	margin: auto;
+}
+
+.nameListTable td {
+	font-size: 13pt;
+	line-height: 130%;
+	color: white;
+	height: 75px;
+}
+
+/* 본문 영역 */
+.content {
+	position: relative;
+	margin-left: 195px;
+	height: 100%;
+}
+
+/* 헤더 영역 */
+.headerContainer {
+	z-index: 10;
+	position: relative;
+	height:150px;
+	box-shadow: 0px 0px 20px rgba(0,0,0,0.3);
+	/* 왼쪽 위에서 -> 오른쪽 밑 */
+	background: linear-gradient(135deg, #ff7860 30%, #FF966D);
+}
+
+.headerContainer .workArea {
+	position: relative;
+	height: 95px;
+}
+
+.headerContainer .workArea .center {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.headerContainer .workArea .dateArea{
+	position: relative;
+	margin: 0 auto;
+	width: 400px;
+	height: 95px;
+}
+
+.dateArea .arrowLeft {
+	top: 38px;
+	left: 15px;;
+}
+
+.dateArea .arrowRight {
+	top: 38px;
+	right: 15px;
+}
+
+.headerContainer .workArea .dateStr {
+	text-align: center;
+	line-height: 95px;
+	font-size: 20pt;
+	color: white;
+}
+
+/* 헤더 영역 - 시간 영역 */
+.headerContainer .timeBar {
+	position: relative;
+	height: 55px;
+	white-space:nowrap;
+	overflow-x: hidden;
+}
+
+.timeBarTable {
+	width: calc(180px * 24);
+	height: 55px;
+}
+
+.timeBarTable {
+	padding: 13px 0px 13px 0px;
+}
+
+.timeBarTable td {
+	width: 180px;
+	font-size: 14pt;
+	text-align: left;
+	padding-left: 10px;
+	color: white;
+	border-right: 2px solid #fff;
+}
+
+.timeBarTable td.last {
+	border-right: 0px;
+}
+
+/* 예약 스케줄 테이블 영역 */
+.reservTimeScroll {
+	position: relative;
+	width: 100%;
+	height: calc(100% - 150px);
+	white-space:nowrap;
+	overflow-x: scroll;
+	overflow-y: scroll;
+}
+
+#currentTimeHeader {
+	position: absolute;
+	z-index: 60;
+	background: #00E676;
+	width: 12px;
+	height: 100%;
+	opacity: 0.7;
+}
+
+#currentTime {
+	position: absolute;
+	z-index: 60;
+	background: #00E676;
+	width: 3px;
+	height: 100%;
+	opacity: 0.7;
+}
+
+.reservTimeScroll .leftMoveBtn {
+	z-index: 90;
+	position: fixed;
+	width: 60px;
+	height: 60px;
+	background: rgba(255, 120, 96, 0.5);
+	border-radius: 60px;
+	top: 50%;
+	left: 205px;
+}
+
+.reservTimeScroll .rightMoveBtn {
+	z-index: 90;
+	position: fixed;
+	width: 60px;
+	height: 60px;
+	background: rgba(255, 120, 96, 0.5);
+	border-radius: 60px;
+	top: 50%;
+	right: 15px;
+}
+
+.leftMoveBtn .arrowLeft {
+	width: 20px;
+	height: 20px;
+	top: 20px;
+	left: 25px;
+}
+
+.rightMoveBtn .arrowRight {
+	width: 20px;
+	height: 20px;
+	top: 20px;
+	right: 25px;
+}
+
+.reservTimeTable{
+	width: calc(180px * 24);
+}
+
+.reservTimeTable td {
+	background: white;
+	/*width: 90px;*/
+	height: 75px;
+	border-right: 1px solid #F2F2F2;
+	border-bottom: 1px solid #C4C4C4;
+
+	/*padding: 4px;*/
+}
+
+.hourEnd
+{
+	border-right: 1px solid #C4C4C4 !important;
+}
+
+.reservInfo {
+	position: absolute;
+
+	background: #FFD553;
+	width: 180px;
+	height: 65px;
+	font-size: 15pt;
+	color: #FFF;
+	font-weight: 700;
+	text-align: center;
+	line-height: 65px;
+	cursor: pointer;
+}
+
+.reservTimeTable .visit { background: #00D686 !important; }
+.reservTimeTable .noshow { background: #FF7370 !important; }
+.reservTimeTable .reserved { background: #54A6E5 !important; }
+.reservTimeTable .reservwait { background: #AAA !important; }
+
+/*
+.reservInfo .reservName {
+	float: left;
+	position: relative;
+	font-size: 18pt;
+	color: white;
+	background: #167EC5;
+	text-align: center;
+	line-height: 70px;
+	height: 100%;
+	width: 100%;
+}
+
+.reservInfo .str {
+	position: relative;
+	float: left;
+	margin-left: 5px;
+	font-size: 15pt;
+	text-align: center;
+	line-height: 70px;
+	color: white;
+}*/
+
+
+.reservInfoContinue {
+	z-index: 90;
+	box-shadow: -10px 0 0 0 #2496E5;
+}

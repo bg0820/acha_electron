@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<title>아차! : 호율적인 예약관리의 시작</title>
+		<!-- CSS 영역-->
+		<!-- Common CSS -->
+		<link href="assets/css/common.css" rel="stylesheet">
+		<!-- Font CSS -->
+		<link href="assets/font/font.css" rel="stylesheet">
+		<!-- Index CSS -->
+		<link href="assets/css/login.css" rel="stylesheet">
+
+		<!-- JS 영역-->
+		<!-- JQuery JS -->
+		<script>window.$ = window.jQuery = require('./assets/js/jquery-3.3.1.min.js');</script>
+		<!-- Custom JS -->
+		<script src="assets/js/ipc.js"></script>
+	</head>
+	<body>
+		<div class="center">
+			<div class="container">
+				<img src="assets/img/logo.svg" width="100%">
+				<p class="achaMsg">예약 관리를 통한 매출 증대 서비스, 아차!</p>
+				<input type="text" id="id" maxlength="20" placeholder="아이디">
+				<br />
+				<input type="password" id="pw"  maxlength="20" placeholder="비밀번호">
+				<br />
+				<div class="resultMsg" id="resultMsg"></div>
+				<a href="javascript:login();">
+					<div class="button">
+						로그인
+					</div>
+				</a>
+
+			</div>
+		</div>
+	</body>
+</html>

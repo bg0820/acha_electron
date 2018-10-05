@@ -1,0 +1,232 @@
+
+.calendar_wrap {
+	display: none;
+	position: fixed;
+	width: 380px;
+	height: 350px;
+	top: 0;
+	left: 0;
+	z-index: 5;
+	border: 1px solid #ccc;
+}
+
+.calendar a:link, a:visited {
+	color: #545454;
+	text-decoration: none;
+	/*height: 1.75em;*/
+	line-height: 2em;
+	/*padding: 0 0.65em 0 0.65em;*/
+}
+
+.calendar
+{
+	display: flex;
+	flex-direction: column;
+	flex-grow: 4;
+	background: #F3F3F5;
+	color: #545454;
+}
+
+.calendar-header {
+	position: relative;
+	text-align: center;
+	background: #fff;
+	height: 1.8em;
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+		    box-sizing: border-box;
+}
+
+.calendar-header-date, .calendar-header-date:hover {
+	/*border: 1px solid #ccc;
+	border-radius: 20px;
+	padding: 0.3em;*/
+	cursor: default;
+}
+
+.calendar-header-date span
+{
+	font-size: 1.1em;
+	font-weight: 600;
+	margin: 0.3em;
+}
+
+
+.calendar-day-title
+{
+	display: flex;
+	background: #fff;
+	padding-top: 0.5em;
+	border-bottom: 1px solid #EBEBEB;
+	font-size: 9pt;
+}
+
+.calendar-day-title div
+{
+	padding-bottom: 0.5em;
+	flex: 1 1 auto;
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+		    box-sizing: border-box;
+	text-align: center;
+}
+
+.calendar-week
+{
+	display: flex;
+	flex: 1 0 0;
+	flex-direction: row;
+	flex-grow: 1;
+	width: 100%;
+}
+
+.calendar-day-wrap
+{
+	flex: 1 1 auto;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	overflow: hidden;
+}
+
+.calendar-day-blank
+{
+	flex: 1 1 0%;
+	vertical-align: top;
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+		    box-sizing: border-box;
+	padding: 0;
+	font-size: 9pt;
+}
+
+.calendar-day
+{
+	display: table-cell;
+	position: relative;
+	flex: 1 1 0%;
+	vertical-align: top;
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+		    box-sizing: border-box;
+	box-shadow: 0 0 0 1px #EBEBEB;
+	padding: 0;
+	background: #fff;
+	font-size: 10pt;
+	cursor: pointer;
+}
+
+.calendar-day:hover {
+	background: #ccc;
+	color: white;
+}
+
+/* 자동 높이 계산 트릭 */
+.calendar-day:before {
+	content: '';
+	float: left;
+}
+
+.calendar-day-number
+{
+	margin: 0.25em 0 0 0.25em;
+	width: 1.55em;
+	height: 1.55em;
+	line-height: 1.55em;
+	text-align: center;
+	font-weight: 400;
+}
+
+.calendar-day-today .calendar-day-number
+{
+	color: #FFF !important;
+	background: #1D94FF;
+	border-radius: 1em;
+}
+
+
+.calendar-schedule-wrap
+{
+	position: relative;
+	text-align: center;
+	line-height: 0;
+	margin-top: 0.2em;
+}
+
+.calendar-schedule
+{
+	margin-bottom: 1px;
+	height: 1.3em;
+	line-height: 1.3em;
+	padding: 0em 0em 0em 0.2em;
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+		    box-sizing: border-box;
+}
+
+
+.calendar-schedule.calendar-schedule-continued
+{
+	box-shadow: -2px 0 0 0;
+}
+
+.calendar-schedule span {
+	display: block;
+	width: auto;
+	margin: 0;
+	color: #fff;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	text-align: left;
+}
+
+.calendar-schedule:hover {
+	cursor: pointer;
+}
+
+/* css 화살표 */
+.arrow-prev, .arrow-next {
+	position: absolute;
+	top: 0;
+	width: 3em;
+	height: 100%;
+	opacity: .5;
+}
+
+.arrow-prev:hover, .arrow-next:hover{
+	cursor: pointer;
+}
+
+.arrow-prev {
+	left: 0;
+}
+.arrow-next {
+	right: 0;
+}
+.arrow-prev:hover, .arrow-next:hover {
+	opacity: .8;
+}
+
+.arrow-prev:after, .arrow-next:after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	border-style: solid;
+	border-color: #222;
+	width: 0.4em;
+	height: 0.4em;
+	margin: -0.4em 0 0 -0.4em;
+	-webkit-transform: rotate(45deg);
+		-ms-transform: rotate(45deg);
+	        transform: rotate(45deg);
+}
+
+.arrow-prev:after{
+	border-width: 0 0 0.2em 0.2em;
+}
+
+.arrow-next:after {
+	border-width: 0.2em 0.2em 0 0;
+}

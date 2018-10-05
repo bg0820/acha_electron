@@ -1,0 +1,32 @@
+.flexcenter {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+}
+
+.flexcenter_align {
+	display: flex;
+    justify-content: flex-start;
+    flex-flow: row wrap;
+    -webkit-flex-flow: row wrap;
+    -ms-flex-flow: row wrap;
+    align-items: center;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+}
+
+.flex_half_section
+{
+	flex: 1;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
