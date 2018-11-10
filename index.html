@@ -15,24 +15,28 @@
 		<link href="assets/css/icon.css" rel="stylesheet">
 		<!-- Modal CSS -->
 		<link href="assets/css/modal.css" rel="stylesheet">
-
+		<link href="assets/css/setting.css" rel="stylesheet">
 		<!-- JS 영역-->
 		<!-- JQuery JS -->
 		<script>window.$ = window.jQuery = require('./assets/js/jquery-3.3.1.min.js');</script>
+		<script src="assets/js/jquery.cookie.js"></script>
 		<script src="assets/js/socket.io.js"></script>
-		<!-- Custom JS -->
+		<!-- Common JS -->
 		<script src="assets/js/ipc.js"></script>
 		<script src="assets/js/common.js"></script>
 		<script src="assets/js/index.js"></script>
 		<script src="assets/js/modal.js"></script>
+		<script src="assets/js/setting.js"></script>
 		<script src="assets/js/socket.js"></script>
 		<script src="assets/js/calendar.js"></script>
 	</head>
 	<body>
 		<div id='addReservBtn' class="addReservBtn"><div class="icon_wrap"><span class='i_plus'></span></div></div>
 		<div id="modalBackground" class="popupBackground reserv">
-			<div id="modal" class="modalPopUp">
-			</div>
+			<!-- <div id="modal" class="modalPopUp">
+			</div> -->
+		</div>
+		<div id="settingView" class="settingView">
 		</div>
 
 		<!-- 모달창 배경 클릭시 사라지게 하기 위한 백그라운드 -->
@@ -45,13 +49,13 @@
 		</div>
 
 		<div class="subMenu">
-			<div class="header">
-				<div class="storeNameArea">
-					<div class="center">
-						<span id="storeName" class="storeName"></span>
-					</div>
+			<div class="header flexcenter">
+				<span id="storeName" class="storeName"></span>
+				<div class="hr_wrap">
+					<hr class="white"/>
 				</div>
 			</div>
+
 
 			<div class="nameList">
 				<table id="nameList" class="nameListTable" cellpadding=0 cellspacing=0></table>

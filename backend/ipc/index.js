@@ -10,8 +10,9 @@ module.exports = {
 		ipc.on('getCookies', function(event, data) {
 			event.sender.send('cookiesResponse', loginData);
 		});
-
+/*
 		ipc.on('notificationWrite', function(event, data) {
+			console.log(data);
 			var date = new Date(data.date);
 			var reservTime = new Date(date.reservTime);
 
@@ -61,6 +62,6 @@ module.exports = {
 					event.sender.send('getAlertItems', { list: rows});
 				});
 			});
-		});
+		});*/
 	}
 }

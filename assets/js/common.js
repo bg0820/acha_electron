@@ -10,8 +10,11 @@ $(document).ready(function() {
 
 	//
 	$('#settings').click(function() {
-		popupSettings();
-		drawProcess((500 / 6000) * 100);
+		showSetting('assets/modalView/ajax-settings.html').then(function(result) {
+			$('#modalTitleStr').text(storeSetting.storeName + ' - 매장 관리');
+	
+			setting_store();
+		});
 	});
 
 	// 예약 추가 버튼 눌렀을경우
@@ -32,11 +35,6 @@ window.onclick = function(event) {
 	{
 		clickBackgroundClose();
 	}
-
-/*
-	// 알림창 배경 클릭시 알림창 닫기
-	var notiBack = document.getElementById('notiBackground');
-	if(event.target == notiBack)*/
 
 	$('.calendar-day').bind('click', function() {
 		var clickDate = $(this).attr('date-number');
@@ -213,19 +211,18 @@ function onAlertListScroll(elem)
 	var alertScrollWrap = document.getElementById('alertScrollWrap').offsetHeight;
 	var yPoint = alertList.scrollTop;
 
-	console.log('-------------------------------');
+	/*console.log('-------------------------------');
 	console.log(alertScrollWrap);
 	console.log(alertList.offsetHeight);
 	console.log((alertScrollWrap - alertList.offsetHeight));
 	console.log(yPoint);
-	console.log('-------------------------------');
+	console.log('-------------------------------');*/
 	// 끝자락 도착
 	if((alertScrollWrap - alertList.offsetHeight) < yPoint)
 	{
 		getAlertItems();
-		console.log("D");
+		// console.log("D");
 	}
-
 }
 
 function zeroFormating(num, len = 2)

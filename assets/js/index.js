@@ -3,7 +3,6 @@ let dayStrArr = ['일', '월', '화', '수', '목', '금', '토'];
 let tables = [];
 let managers = [];
 let alarmInterval = [];
-
 let storeSetting;
 
 // 10초마다 refresh
@@ -25,25 +24,55 @@ function indexLoad()
 		// 최신 알림정보 15개 가져오기
 		getAlertItems();
 
-		// 밀린 알림 정보 가져오기
-		return getLastNotiTime();
-	}).then(function() {
 		// 테이블 배치
-		return indexInit();
-	}).then(function() {
-		// 오늘 세팅
-		updateDate(currentDate);
-		// 초록색 막대로 현재 시간 표시
-		currentTimeBar();
-		// 현재 시간 위치로 테이블 스크롤 이동
-		setTime();
+		indexInit();
 	});
 }
 
 window.onload = indexLoad;
 
-function popupSettings() {
-	showModal('assets/modalView/ajax-settings.html');
+function getAlertItems()
+{
+	$.ajax({
+	url: 'http://test.acha.io:3000/store/push', // 요청 할 주소
+	async: false, // false 일 경우 동기 요청으로 변경
+	type: 'GET', // GET, PUT
+	data: {
+		token: cookies.token,
+		number: 15,
+		offset: _gOffset,
+	}, // 전송할 데이터
+	dataType: 'json', // xml, json, script, html
+		success: function(result) {
+			for(var item = 0; item < result.alarmList.length; item++)
+				addNotification(result.alarmList[item], 'last');
+
+			_gOffset += 15;
+			console.log(result);
+		}, // 요청 완료 시
+		error: function(error) {
+			alert('문의 주세요(010-9291-9215)', alert);
+		} // 요청 실패
+	});
+	/*
+	ipc.send('getAlertItems', {offset: _gOffset, num: 15});
+
+	ipc.once('getAlertItems', function(event, response) {
+		if( response.list.length != 0)
+		{
+			for(var item = 0; item < response.list.length; item++)
+				addNotification(response.list[item], 'last');
+
+			_gOffset += 15;
+		}
+	});*/
+}
+
+function popupReserv(tableName, hour, minute)
+{
+	selectTableList = [];
+	showModal('assets/modalView/ajax-reservadd.html');
+	reservPopupInit(tableName, hour, minute);
 }
 
 function initAlertView() {
@@ -124,23 +153,35 @@ function attachReservToTable(json)
 		var minstr = '';
 		if(minute == 1)
 			minstr = '.5';
+		var reservTimeSpan = reserv.reservTimeSpanMin / 30;
+		var widthReserv = 90 * reservTimeSpan;
 
-		console.log(reserv);
+		// 표시되는 이름
 		var viewName = "";
-		if(reserv.phoneNumber)
-			viewName = reserv.phoneNumber.substring(7, reserv.phoneNumber.length);
-		else
+		if(reserv.reservName)
 			viewName = reserv.reservName;
+		else
+		{
+			if(reserv.phoneNumber)
+			{
+				viewName = reserv.phoneNumber.substring(7, reserv.phoneNumber.length);
+			}
+			else
+				viewName = "사용자가 정보를 등록하지 않았습니다."
+		}
 
-		var div = "<div reservStatus='" + reserv.reservStatus + "' reservId='" + reserv.reservUUID + "' class='reservInfo " + reserv.reservStatus + "'>" + viewName + "</div>";
 
+		var div = "<div reservStatus='" + reserv.reservStatus + "' reservId='" + reserv.reservUUID + "' class='flexcenter reservInfo " + reserv.reservStatus + "'>" + viewName + "</div>";
 		for(var j = 0 ; j< reserv.reservTarget.length; j++)
 		{
-			//console.log(reserv.tableName[j]);
-			if(reserv.reservStatus == 'storecancel' || reserv.reservStatus == 'usercancel')
-				$('*[table-number="' + reserv.reservTarget[j] + '-' + date.getHours() + minstr + '"]').html('');
-			else
-				$('*[table-number="' + reserv.reservTarget[j] + '-' + date.getHours() + minstr + '"]').html(div);
+			var tableItem = $('*[table-number="' + reserv.reservTarget[j] + '-' + date.getHours() + minstr + '"]');
+			tableItem.html(div);
+
+			$($(tableItem)[0].children[0]).css('width', widthReserv);
+
+			// 예약이 몇분짜리인지 판별후 뒤에 테이블 지우기
+			/*for(var k = 2; k < reservTimeSpan; k++)
+				$('*[table-name="' + reserv.reservTarget[j] + '"]')[(date.getHours() * 2) + k].remove();*/
 		}
 	}
 }
@@ -181,9 +222,9 @@ function tableInitialize()
 		for(var td = 0 ; td < 48; td++)
 		{
 			if(td % 2 != 0)
-				tableshtmlStr += "<td class='hourEnd' table-number='" + targets[tr].targetName + "-" + (td / 2) + "'></td>";
+				tableshtmlStr += "<td class='hourEnd' table-name='" + targets[tr].targetName +  "' table-number='" + targets[tr].targetName + "-" + (td / 2) + "'></td>";
 			else
-				tableshtmlStr += "<td table-number='" + targets[tr].targetName + "-" + (td / 2) + "'></td>";
+				tableshtmlStr += "<td table-name='" + targets[tr].targetName +  "' table-number='" + targets[tr].targetName + "-" + (td / 2) + "'></td>";
 		}
 
 		tableshtmlStr += "</tr>";

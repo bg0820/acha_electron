@@ -1,96 +1,116 @@
-<div id='seclectPopupMenu' class="seclectPopupMenu">
+<div id="modal" class="modalPopUp">
+	<div id='seclectPopupMenu' class="seclectPopupMenu">
 
-</div>
+	</div>
 
-<div id="calendarWrap" class="calendar_wrap">
+	<div id="calendarWrap" class="calendar_wrap">
 
-	<div class="calendar">
-		<div class="calendar-header flexcenter">
-			<a class="calendar-header-date" id="date-title"></a>
-			<a class="arrow-prev" onclick="prevCalendarMonth();"></a>
-			<a class="arrow-next" onclick="nextCalendarMonth();"></a>
-		</div>
-		<div class="calendar-day-title">
-			<div style="color:#F15F5F">일</div>
-			<div>월</div>
-			<div>화</div>
-			<div>수</div>
-			<div>목</div>
-			<div>금</div>
-			<div style="color:#2478FF">토</div>
-		</div>
-		<div class="calendar-day-wrap" id="calendar-day-wrap">
+		<div class="calendar">
+			<div class="calendar-header flexcenter">
+				<a class="calendar-header-date" id="date-title"></a>
+				<a class="arrow-prev" onclick="prevCalendarMonth();"></a>
+				<a class="arrow-next" onclick="nextCalendarMonth();"></a>
+			</div>
+			<div class="calendar-day-title">
+				<div style="color:#F15F5F">일</div>
+				<div>월</div>
+				<div>화</div>
+				<div>수</div>
+				<div>목</div>
+				<div>금</div>
+				<div style="color:#2478FF">토</div>
+			</div>
+			<div class="calendar-day-wrap" id="calendar-day-wrap">
+			</div>
 		</div>
 	</div>
-</div>
 
-<div class="modal_title_area">
-	<a href="javascript:close()"><span id="close" class="modal_close">&times;</span></a>
-	<div id="modalTitleStr" class="modal_title_str">예약 등록</div>
-</div>
-<hr>
-<p class="sectionTitle">고객 정보 등록</p>
-<div class="userInfoSection">
-	<div class="leftSection">
-		<input type="tel" id="phoneNumber" maxlength="13" placeholder="핸드폰 번호, (-) 없이 입력해주세요." onkeyup="checkPhoneNumber(this)">
-		<input type="text" id="name" class="nonMargin" maxlength="10" placeholder="이름">
+	<div class="modal_title_area">
+		<a href="javascript:close()"><span id="close" class="modal_close">&times;</span></a>
+		<div id="modalTitleStr" class="modal_title_str">예약 등록</div>
 	</div>
-	<div class="rightSection">
-		<div class="infoBar">
-			<!-- <p id="infoMsg" class="infoMsg"></p> -->
-			<div class="statistics">
-				<div class="statisticsCount">
-					<span>예약 횟수</span>
-					<span id="storeReservStr" class="storeReservStr">0</span>
-					<span id="totalReservStr" class="totalReservStr">(0)</span>
-				</div>
-				<div class="statisticsCount">
-					<span>방문 횟수</span>
-					<span id="storeVisitStr" class="storeVisitStr">0</span>
-				</div>
-				<div class="statisticsCount">
-					<span>취소 횟수</span>
-					<span id="storeCancelStr" class="storeCancelStr">0</span>
-				</div>
-				<div class="statisticsCount end">
-					<span>노쇼 횟수</span>
-					<span id="storeNoshowStr" class="storeNoshowStr">0</span>
-					<span id="totalNoshowStr" class="totalNoshowStr">(0)</span>
+	<hr>
+	<!--  <p class="sectionTitle">고객 정보 등록</p> -->
+	<div class="userInfoSection">
+		<div class="leftSection">
+			<p class="item_title">고객 핸드폰 번호</p>
+			<input type="tel" id="phoneNumber" maxlength="13" onkeyup="checkPhoneNumber(this)">
+			<p class="item_title">고객 이름</p>
+			<input type="text" id="name" class="nonMargin" maxlength="10" >
+		</div>
+		<div class="rightSection">
+			<div class="infoBar">
+				<!-- <p id="infoMsg" class="infoMsg"></p> -->
+				<div class="statistics">
+					<div class="statisticsCount">
+						<span>예약 횟수</span>
+						<span id="storeReservStr" class="storeReservStr">0</span>
+						<span id="totalReservStr" class="totalReservStr">(0)</span>
+					</div>
+					<div class="statisticsCount">
+						<span>방문 횟수</span>
+						<span id="storeVisitStr" class="storeVisitStr">0</span>
+					</div>
+					<div class="statisticsCount">
+						<span>취소 횟수</span>
+						<span id="storeCancelStr" class="storeCancelStr">0</span>
+					</div>
+					<div class="statisticsCount end">
+						<span>노쇼 횟수</span>
+						<span id="storeNoshowStr" class="storeNoshowStr">0</span>
+						<span id="totalNoshowStr" class="totalNoshowStr">(0)</span>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<hr class="sectionHr">
-<p class="sectionTitle">예약 정보 등록</p>
-<div class="reservSection">
-	<div class="leftSection">
-		<div class="numberSelect">
-			<div id="numberStr" class="numberStr flexcenter">1</div>
-			<div onclick="minus();" class="minus flexcenter">-</div>
-			<div onclick="plus();"  class="plus flexcenter">+</div>
-		</div>
-		<div onclick="dateInputClick(this)" stlye="display:inline-block; position:relative;">
-			<input type="text" id="reservDate" class="dateInput" placeholder="날짜 선택" disabled="disabled">
-		</div>
-
-		<!-- <input type="date" id='reservDate' value='2018-08-30'> -->
-		<input type="time" id='reservTime'>
-		<!-- <input type="text" id="reservMoney" maxlength="8" placeholder="예약금"> -->
-	</div>
-	<div class="rightSection">
-		<div class="section">
-			<div onclick="tableInputClick()" stlye="display:inline-block; position:relative;">
-				<input type="text" id="table" class="tableInput" placeholder="자리 선택" disabled="disabled">
+	<hr class="sectionHr">
+	<!-- <p class="sectionTitle">예약 정보 등록</p>-->
+	<div class="reservSection">
+		<div class="leftSection">
+			<p class="item_title">예약 인원</p>
+			<div class="numberSelect">
+				<div id="numberStr" class="numberStr flexcenter">1</div>
+				<div onclick="minus();" class="minus flexcenter">-</div>
+				<div onclick="plus();"  class="plus flexcenter">+</div>
 			</div>
+			<p class="item_title">예약 일자</p>
+			<div onclick="dateInputClick(this)" stlye="display:inline-block; position:relative;">
+				<input type="text" id="reservDate" class="dateInput" placeholder="날짜 선택" disabled="disabled">
+			</div>
+			<p class="item_title">예약 시간</p>
+			<!-- <input type="date" id='reservDate' value='2018-08-30'> -->
+			<input type="time" id='reservTime'>
+			<p class="item_title">예약 범위</p>
+			<select id="reservTimeSpan" value='30분'>
+				<option>30분</option>
+				<option>60분</option>
+				<option>90분</option>
+				<option>120분</option>
+				<option>150분</option>
+				<option>180분</option>
+				<option>210분</option>
+				<option>240분</option>
+			</select>
 
-			<!-- <div onclick="managerInputClick(this)" stlye="display:inline-block; position:relative;">
-				<input type="text" id="manager" class="managerInput" placeholder="매니저 선택" disabled="disabled">
-			</div> -->
-			<textarea id="memo" maxlength="150" placeholder="메모"></textarea>
+			<!-- <input type="text" id="reservMoney" maxlength="8" placeholder="예약금"> -->
 		</div>
-	</div>
+		<div class="rightSection">
+			<div class="section">
+				<p class="item_title">테이블 선택</p>
+				<div onclick="tableInputClick()" stlye="display:inline-block; position:relative;">
+					<input type="text" id="table" class="tableInput" placeholder="자리 선택" disabled="disabled">
+				</div>
 
+				<!-- <div onclick="managerInputClick(this)" stlye="display:inline-block; position:relative;">
+					<input type="text" id="manager" class="managerInput" placeholder="매니저 선택" disabled="disabled">
+				</div> -->
+				<p class="item_title">예약 메모</p>
+				<textarea id="memo" maxlength="150"></textarea>
+			</div>
+		</div>
+
+	</div>
+	<a href="javascript:cancel();"><div class="button float cancel">취소</div></a>
+	<a href="javascript:reserv();"><div class="button float">예약</div></a>
 </div>
-<a href="javascript:cancel();"><div class="button cancel">취소</div></a>
-<a href="javascript:reserv();"><div class="button">예약</div></a>

@@ -224,61 +224,30 @@
 
 
 
-/**********************************************************************************
------- setting 영역 ------------------------------------------------------------
-**********************************************************************************/
-
-.canvas_wrap {
-	position: relative;
-	width: 100%;
-	height: 100%;
-}
-
-.canvas_wrap #percentStr {
-	display: block;
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	font-size: 1.5em;
-	transform: translate(-50%, -50%);
-	color: #ff7860;
-}
-
-.canvas_wrap #percentStr:after {
-	content: '%';
-}
-
-.alarm_talk_section, .store_setting_section {
-	display: flex;
-	flex-direction: row;
-}
-.alarm_talk_info {
-	font-size: 1.2em;
-	color: #545454;
-}
-
-.alarm_talk_info .num {
-	font-size: 1.4em;
-	font-weight: 700;
-}
-.alarm_talk_info .highlight {
-	color: #ff7860;
-}
-
-.talk_refresh_label {
-	color: #545454;
-	margin-bottom: 10px;
-}
-
-.talk_refresh_select_box {
-	position: relative;
-	border: 1px solid #ccc;
-	height: 120px;
-}
 
 /**********************************************************************************
 ------ modal 영역 ------------------------------------------------------------
 **********************************************************************************/
+
+.item_title {
+	color: #545454;
+	font-size: 12pt;
+	font-weight: 600;
+	padding-left: 5px;
+	margin-bottom: 5px;
+}
+
+.item_title.have_desc {
+	margin-bottom: 3px;
+}
+
+.item_desc {
+	color: #545454;
+	font-size: 10pt;
+	font-weight: 500;
+	padding-left: 5px;
+	margin-bottom: 5px;
+}
 
 .modal_title_area {
 	padding: 15px;
@@ -299,7 +268,7 @@
 	display: block;
 	color: #545454;
 	font-size: 1em;
-	padding: 15px 0px 0px 15px;
+	padding: 15px 15px 0px 15px;
 }
 
 .modal_title_str {
@@ -312,41 +281,17 @@ hr {
 	border-top: 1px solid #ccc;
 }
 
-input, select, textarea {
-	box-sizing: border-box;
-	text-align: left;
-	vertical-align: middle;
-	height: 50px;
-	width: 100%;
-	background: #fff;
-	font-size: 1.0em;
-	color: #545454;
-	margin-bottom: 15px;
-	padding-left: 10px;
-	border: 1px solid #EBEBEB;
-	border-radius: 3px;
+hr.margin {
+	margin: 5px 0px 5px 0px;
 }
 
-textarea {
-	position: relative;
-	box-sizing: border-box;
-	position: relative;
-	height: 100px;
-	padding: 10px;
-	resize: none;
-
-}
 
 .nonMargin {
 	margin-bottom: 0px;
 }
 
-input:focus, select:focus, textarea:focus {
-	outline: none;
-	border: 1px solid #EBEBEB;
-	border-color: #ff7860;
-	box-shadow: 0 0 2px #ff7860;
-}
+
+
 
 .infoBar {
 	position: relative;
@@ -376,6 +321,7 @@ input:focus, select:focus, textarea:focus {
 	display: flex;
 	flex-direction: row;
 	height: 100%;
+	padding: 10px 0px 10px 0px;
 }
 
 .statisticsCount {
@@ -390,13 +336,13 @@ input:focus, select:focus, textarea:focus {
 
 .infoBar span {
 	color: #666666;
-	font-size: 0.9em;
+	font-size: 1em;
 }
 
 .storeReservStr, .storeVisitStr, .storeCancelStr, .storeNoshowStr
 {
 	display: block;
-	font-size: 2.3em !important;
+	font-size: 2.9em !important;
 	font-weight: 800 !important;
 	color: #4a4a4a !important;
 	margin-top: 10px;
@@ -404,7 +350,7 @@ input:focus, select:focus, textarea:focus {
 
 
 .totalReservStr, .totalNoshowStr {
-	font-size: 1.2em  !important;
+	font-size: 1.5em  !important;
 }
 
 .storeNoshowStr, .totalNoshowStr {
@@ -414,7 +360,7 @@ input:focus, select:focus, textarea:focus {
 .numberSelect {
 	width: 100%;
 	height: 50px;
-	margin-bottom: 15px;
+	margin-bottom: 10px;
 	border: 1px solid #EBEBEB;
 	border-radius: 3px;
 }
@@ -426,7 +372,7 @@ input:focus, select:focus, textarea:focus {
 .numberSelect .minus, .numberSelect .plus, .numberSelect .numberStr {
 	float: left;
 	text-align: center;
-	width: 40%;
+	width: 50%;
 	height: 100%;
 	font-size: 1.0em;
 	font-weight: bold;
@@ -435,7 +381,9 @@ input:focus, select:focus, textarea:focus {
 
 .numberSelect .minus, .numberSelect .plus {
 	/*background: #F5F5F5;*/
-	width: 30%;
+	width: 25%;
+	font-size: 16pt;
+	font-weight: 700;
 	color: #ff7860;
 	cursor: pointer;
 }
@@ -494,38 +442,22 @@ input[type='time'] {
 	padding-bottom: 5px;
 }
 
-
-.button {
-	float: left;
-	position: relative;
-	line-height: 70px;
-	vertical-align: middle;
-	text-align: center;
-	font-size: 14pt;
-	font-weight: bold;
-	width: 50%;
-	height: 70px;
-	background: #ff7860;
-	color: #fff;
-
-}
-
-.cancel {
-	background: #848484;
-}
-
 /* The Close Button */
 .modal_close {
-   color: #aaa;
-   float: right;
-   font-size: 28pt;
-   line-height: 100%;
-   font-weight: bold;
+	position: absolute;
+	color: #aaa;
+	float: right;
+	font-size: 35pt;
+	line-height: 100%;
+	font-weight: bold;
+	z-index: 100;
+	top: 8px;
+    right: 15px;
 }
 
 .modal_close:hover,
 .modal_close:focus {
-   color: black;
+   color: #545454;
    text-decoration: none;
    cursor: pointer;
 }
@@ -572,7 +504,18 @@ input[type='time'] {
 	overflow: auto;
 }
 
-.seclectPopupMenu ul {
+.tableBox {
+	width: auto;
+	min-height: 0px;
+	max-height: none;
+	height: 100%;
+	position: relative;
+	border: 0;
+	padding: .5em 1em;
+	overflow: auto;
+}
+
+.selectBox ul, .tableBox ul {
 	display: flex;
 	justify-content: flex-start;
 	flex-flow: row wrap;
@@ -583,7 +526,7 @@ input[type='time'] {
 	list-style: none;
 }
 
-.seclectPopupMenu li {
+.selectBox li, .tableBox li {
 	float: left;
 	background-color: #fff7ed;
     width: 100px;

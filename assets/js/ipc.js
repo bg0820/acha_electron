@@ -4,7 +4,7 @@ let _gOffset = 0;
 
 console.log('isElectron : ', window && window.process && window.process.type);
 console.log('isElectron : ', process.versions['electron']);
-
+/*
 function getAlertItems()
 {
 	ipc.send('getAlertItems', {offset: _gOffset, num: 15});
@@ -22,6 +22,7 @@ function getAlertItems()
 
 function notificationWrite(data)
 {
+	console.log('render, ', data);
 	ipc.send('notificationWrite', data); // setCookie
 }
 
@@ -38,7 +39,7 @@ function getLastNotiTime()
 			resolve(true);
 		});
 	});
-}
+}*/
 
 function login() {
 	$.ajax({
@@ -53,8 +54,11 @@ function login() {
 	    success: function(result) {
 			if(result.result == "success")
 			{
-				ipc.send('loginAuth', result); // setCookie
-				location.href = 'index.html';
+				//console.log(JSON.stringify(result));
+				//$.cookie("store", JSON.stringify(result), { expires: 7, path: '/' });
+
+				 ipc.send('loginAuth', result); // setCookie
+				 location.href = 'index.html';
 				// post_to_url('index.html', result);
 			}
 			else
@@ -67,6 +71,12 @@ function login() {
 }
 
 function getCookies() {
+	/*return new Promise(function (resolve, reject) {
+		cookies = JSON.parse($.cookie("store"));
+		console.log(cookies);
+		resolve(true);
+	});
+	*/
 	ipc.send('getCookies', '');
 
 	return new Promise(function (resolve, reject) {

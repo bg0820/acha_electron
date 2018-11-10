@@ -19,8 +19,8 @@ sqlite.connect().then(function(result) {
 
 function createWindow () {
 	mainWindow = new BrowserWindow({
-		width: 1024,
-    	height: 768,
+		width: 1920,//1024,
+    	height: 1080, // 768,
     	fullscreenable: false,
     	resizable: true,
     	frame: true,

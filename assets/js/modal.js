@@ -3,107 +3,90 @@ let selectTableList;
 
 // offset[first, last]
 function addNotification(data, offset) {
-	//console.log(data);
-	var _reservId = data.reservId;
+	// 예약 알림 동그라미
+	$('#noti').addClass('notification');
+
+	var _reservId = data.reservUUID;
 	if(!_reservId)
-		_reservId = data.reservId;
+		_reservId = data.reservUUID;
 
 	var _status = data.status;
 	if(!_status)
 		_status = data.changeStatus;
 
+	if(!(_status == 'reserved' || _status == 'usercancel'))
+		return;
+
 	var _timestamp = data.timestamp;
 	if(!_timestamp)
 		_timestamp = data.date;
 
+	// D-DAY 계산
+	var reservTime = new Date(data.reservTime);
+	var reservDate = new Date(reservTime.getFullYear(), reservTime.getMonth() + 1, reservTime.getDate());
+	var nowDate = new Date();
+	var toDay = new Date(nowDate.getFullYear(), nowDate.getMonth() + 1, nowDate.getDate());
+	var diff = reservDate - toDay;
+	var currDay = 24 * 60 * 60 * 1000;// 시 * 분 * 초 * 밀리세컨
+	var diffDay = parseInt(diff / currDay);
 
-	$.ajax({
-	url: 'http://test.acha.io:3000/store/reserv/inquery', // 요청 할 주소
-	async: false, // false 일 경우 동기 요청으로 변경
-	type: 'GET', // GET, PUT
-	data: {
-		token: cookies.token,
-		reservId: _reservId
-	}, // 전송할 데이터
-	dataType: 'json', // xml, json, script, html
-		success: function(result) {
-			var reservTime = new Date(result.reserv.reservTime);
-			var reservDate = new Date(reservTime.getFullYear(), reservTime.getMonth() + 1, reservTime.getDate());
-			var nowDate = new Date();
-			var toDay = new Date(nowDate.getFullYear(), nowDate.getMonth() + 1, nowDate.getDate());
+	var phoneNumber = '';
+	if(data.phoneNumber)
+	{
+		var regex = /(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/;
+		phoneNumber = data.phoneNumber.toString().replace(regex, "$1-$2-$3");
+	}
+	var ddayStr = "D-Day";
+	if(diffDay > 0)
+		ddayStr = "D-" + diffDay;
 
-			var diff = reservDate - toDay;
-			var currDay = 24 * 60 * 60 * 1000;// 시 * 분 * 초 * 밀리세컨
-			var diffDay = parseInt(diff / currDay);
+	var reservDateStr = dateForm(reservTime);
+	var dateStr = dateForm(new Date(_timestamp));
 
-			console.log(result);
-			if(result.reserv.phoneNumber)
-			{
-				var regex = /(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/;
-				var phoneNumber = result.reserv.phoneNumber.toString().replace(regex, "$1-$2-$3");
-			}
-			var ddayStr = "D-Day";
+	var stateStr = "";
+	if(_status == 'reserved')
+		stateStr = "예약확정"
+	else if(_status == 'usercancel')
+		stateStr = "예약취소";
 
-			if(diffDay != 0)
-				ddayStr = "D-" + diffDay;
+	var alertListItem = "";
+	alertListItem += "<div type=\"" +_status +  "\" class=\"alert_list_item\">";
+	alertListItem += "<div class=\"alert_top\">";
+	alertListItem += "<div class=\"time\">" + dateStr + "</div>";
+	alertListItem += "</div>";
+	alertListItem += "<div class=\"alert_content\">";
+	alertListItem += "<div class=\"flexcenter_align\">";
+	alertListItem += "<div class=\"alert_state flexcenter " + _status +"\">" + stateStr + "</div>";
+	alertListItem += "</div>";
+	alertListItem += "<div class=\"alert_msg_area\">";
+	alertListItem += "<div class=\"alert_msg\">";
+	//alertListItem += "<div class=\"remain_day\">" + ddayStr + "</div>";
+	alertListItem += "<div class=\"reserv_name_str\">" + data.reservName + "</div>";
+	alertListItem += "<div class=\"reserv_phoneNumber\">" + phoneNumber + "</div>";
 
-			var reservDateStr = dateForm(reservTime);
-			var dateStr = dateForm(new Date(_timestamp));
+	alertListItem += "</div>";
+	alertListItem += "<div class=\"alert_msg_detail\">";
+	alertListItem += "<div class=\"reserv_time\">";
+	alertListItem += "<i class=\"time_icon\"></i>";
+	alertListItem += "<span>" + reservDateStr + "</span>";
+	alertListItem += "</div>";
+	alertListItem += "<div class=\"reserv_number\">";
+	alertListItem += "<i class=\"reserv_number_icon\"></i>";
+	alertListItem += "<span>" + data.reservNumber + "</span>";
+	alertListItem += "</div>";
+	alertListItem += "<div class=\"position_name\">";
+	alertListItem += "<i class=\"table_icon\"></i>";
+	alertListItem += "<span>"  + data.reservTarget + "</span>";
+	alertListItem += "</div>";
+	alertListItem += "</div>";
+	alertListItem += "</div>";
+	alertListItem += "</div>";
+	alertListItem += "</div>";
 
-			if(data.type == 'User')
-			{
-				$('#noti').addClass('notification');
-
-				var stateStr = "";
-				if(_status == 'reserved')
-					stateStr = "예약확정"
-				else if(_status == 'usercancel')
-					stateStr = "예약취소";
-
-				var alertListItem = "";
-				alertListItem += "<div type=\"" +_status +  "\" class=\"alert_list_item\">";
-				alertListItem += "<div class=\"alert_top\">";
-				alertListItem += "<div class=\"time\">" + dateStr + "</div>";
-				alertListItem += "</div>";
-				alertListItem += "<div class=\"alert_content\">";
-				alertListItem += "<div class=\"flexcenter_align\">";
-				alertListItem += "<div class=\"alert_state flexcenter " + _status +"\">" + stateStr + "</div>";
-				alertListItem += "</div>";
-				alertListItem += "<div class=\"alert_msg_area\">";
-				alertListItem += "<div class=\"alert_msg\">";
-				//alertListItem += "<div class=\"remain_day\">" + ddayStr + "</div>";
-				alertListItem += "<div class=\"reserv_name_str\">" + result.reserv.name + "</div>";
-				alertListItem += "<div class=\"reserv_phoneNumber\">" + phoneNumber + "</div>";
-
-				alertListItem += "</div>";
-				alertListItem += "<div class=\"alert_msg_detail\">";
-				alertListItem += "<div class=\"reserv_time\">";
-				alertListItem += "<i class=\"time_icon\"></i>";
-				alertListItem += "<span>" + reservDateStr + "</span>";
-				alertListItem += "</div>";
-				alertListItem += "<div class=\"reserv_number\">";
-				alertListItem += "<i class=\"reserv_number_icon\"></i>";
-				alertListItem += "<span>" + result.reserv.reservNumber + "</span>";
-				alertListItem += "</div>";
-				alertListItem += "<div class=\"position_name\">";
-				alertListItem += "<i class=\"table_icon\"></i>";
-				alertListItem += "<span>"  + result.reserv.tableName + "</span>";
-				alertListItem += "</div>";
-				alertListItem += "</div>";
-				alertListItem += "</div>";
-				alertListItem += "</div>";
-				alertListItem += "</div>";
-
-				if(offset == 'first')
-					$('#alertScrollWrap').prepend(alertListItem);
-				else if(offset == 'last')
-					$('#alertScrollWrap').append(alertListItem);
-			}
-		}, // 요청 완료 시
-		error: function(error) {
-			alert('문의 주세요(010-9291-9215)', alert);
-		} // 요청 실패
-	});
+	if(offset == 'first')
+		$('#alertScrollWrap').prepend(alertListItem);
+	else if(offset == 'last')
+		$('#alertScrollWrap').append(alertListItem);
 }
 
 function alertSortingView(_type)
@@ -228,6 +211,8 @@ function close()
 {
 	var modal = document.getElementById('modalBackground');
 	modal.style.display = 'none';
+	var setting = document.getElementById('settingView');
+	setting.style.display = 'none';
 }
 
 function clickBackgroundClose()
@@ -238,14 +223,6 @@ function clickBackgroundClose()
 	alertModal.style.display = 'none';
 }
 
-
-function popupReserv(tableName, hour, minute)
-{
-	selectTableList = [];
-	showModal('assets/modalView/ajax-reservadd.html');
-	reservPopupInit(tableName, hour, minute);
-}
-
 function reservPopupInit(tableName, hour, minute)
 {
 	// 빈 테이블 클릭해서 테이블 지정하고 예약 추가창 열렸을경우 tableName 이 지정되어있음
@@ -254,6 +231,8 @@ function reservPopupInit(tableName, hour, minute)
 		selectTableList.push(tableName);
 		$('#table').val(selectTableList);
 	}
+
+	$('#reservTimeSpan').val(cookies.storeInfo.defaultReservTimeSpanMin + "분");
 
 	var date = currentDate;
 
@@ -275,23 +254,51 @@ function reservPopupInit(tableName, hour, minute)
 }
 
 function showModal(_url) {
-	var modal = document.getElementById('modalBackground');
-	modal.style.display = "flex";
+	return new Promise(function(resolve, reject) {
+		var modal = document.getElementById('modalBackground');
+		modal.style.display = "flex";
 
-	$.ajax({
-	url: _url, // 요청 할 주소
-	async: false, // false 일 경우 동기 요청으로 변경
-	type: 'GET', // GET, PUT
-	data: {}, // 전송할 데이터
-	dataType: 'html', // xml, json, script, html
-		success: function(result) {
-			document.getElementById('modal').innerHTML = result;
-		}, // 요청 완료 시
-		error: function(error) {
-			alert('문의 주세요(010-9291-9215)', alert);
-		} // 요청 실패
+		$.ajax({
+		url: _url, // 요청 할 주소
+		async: false, // false 일 경우 동기 요청으로 변경
+		type: 'GET', // GET, PUT
+		data: {}, // 전송할 데이터
+		dataType: 'html', // xml, json, script, html
+			success: function(result) {
+				document.getElementById('modalBackground').innerHTML = result;
+				resolve(true);
+			}, // 요청 완료 시
+			error: function(error) {
+				alert('문의 주세요(010-9291-9215)', alert);
+				reject(error);
+			} // 요청 실패
+		});
 	});
 }
+
+function showSetting(_url) {
+	return new Promise(function(resolve, reject) {
+		var modal = document.getElementById('settingView');
+		modal.style.display = "flex";
+
+		$.ajax({
+		url: _url, // 요청 할 주소
+		async: false, // false 일 경우 동기 요청으로 변경
+		type: 'GET', // GET, PUT
+		data: {}, // 전송할 데이터
+		dataType: 'html', // xml, json, script, html
+			success: function(result) {
+				document.getElementById('settingView').innerHTML = result;
+				resolve(true);
+			}, // 요청 완료 시
+			error: function(error) {
+				alert('문의 주세요(010-9291-9215)', alert);
+				reject(error);
+			} // 요청 실패
+		});
+	});
+}
+
 
 
 function dateInputClick(elem) {
@@ -319,8 +326,6 @@ function tableInputClick() {
 			var elem = document.getElementById('seclectPopupMenu');
 			elem.innerHTML = result;
 
-			console.log(elem);
-
 			// 화면 중앙에 위치 시키기
 			var left = (document.body.scrollWidth - 520) / 2;
 			var top = (document.body.scrollHeight - 238) / 2;
@@ -344,15 +349,16 @@ function tableInit()
 	var timeArr = document.getElementById('reservTime').value.split(':');
 
 	var _startDate = Number(new Date(dateArr[0], Number(dateArr[1]) - 1, dateArr[2], timeArr[0], timeArr[1], 0));
-	var _endDate = Number(new Date(Number(_startDate) + 1800000));
+	var reservTimeSpan = $('#reservTimeSpan').val().split('분')[0];
+	var _endDate = Number(new Date(Number(_startDate) + (1000 * 60 * reservTimeSpan)));
 	var arg = {
 		token: cookies.token,
 		startTime: _startDate,
 		endTime: _endDate
 	};
 
+	// 테이블이 예약되어 있는지 확인
 	requestAjaxAsync('http://test.acha.io:3000/store/reserv/isCheck', 'GET', arg).then(function(result) {
-		console.log(result);
 		$('#selectList').html('');
 		for(var i = 0; i < storeSetting.targets.length; i++)
 		{
@@ -370,6 +376,7 @@ function tableInit()
 		// 선택한 테이블, 다시 테이블 선택창 들어가도 선택되어있게
 		tempSelectTableList = selectTableList;
 		selectTableList = [];
+
 		if(tempSelectTableList.length > 0)
 		{
 			var selectList = $('#selectList li');
@@ -469,26 +476,27 @@ function reserv()
 	var reservTime = $('#reservTime').val();
 	var reservDateArr = reservDate.split('-');
 	var reservTimeArr = reservTime.split(':');
+	var reservTimeSpan = $('#reservTimeSpan').val().split('분')[0];
 
+	// 예약 날짜 단순화
 	var date = new Date(reservDateArr[0], Number(reservDateArr[1]) - 1, reservDateArr[2], reservTimeArr[0], reservTimeArr[1], 0);
 	var reservTimestamp = Number(date);
-
+    // POST 값으로 보낼 값 정의
 	var data = {
 		token: cookies.token,
 		phoneNumber: $('#phoneNumber').val(),
 		reservNumber: $('#numberStr').text().trim(),
 		//manager: $('#manager').val(),
 		reservTime: reservTimestamp,
-		reservTimeSpanMin: cookies.storeInfo.defaultReservTimeSpanMin,
+		reservTimeSpanMin: reservTimeSpan,
 		//reservMoney: $('#reservMoney').val(),
 		name: $('#name').val(),
-		tableName: selectTableList,
+		reservTarget: selectTableList,
 		memo: $('#memo').val(),
 	};
 
-	// 오늘 세팅
 	close();
-
+	// 예약 Rest API Http Request 요청
 	requestAjaxAsync(
 		'http://test.acha.io:3000/store/reserv',
 		'POST',
@@ -496,7 +504,7 @@ function reserv()
 	).then(function(result) {
 		if(result.result == "success")
 		{
-			// 오늘 세팅
+			// 예약이 완료되면 갱신
 			updateDate(currentDate);
 			alert('예약이 완료되었습니다.');
 		}
@@ -525,7 +533,7 @@ function checkPhoneNumber(doc) {
 				console.log(result);
 				$('#storeReservStr').text(result.userInfo.storeReservCnt);
 				$('#storeVisitStr').text(result.userInfo.storeVisitCnt);
-				$('#storeCancelStr').text(result.userInfo.storeStoreCancelCnt + result.userInfo.storeUserCancelCnt);
+				$('#storeCancelStr').text(result.userInfo.storeUserCancelCnt);
 				$('#storeNoshowStr').text(result.userInfo.storeNoshowCnt);
 
 				$('#totalReservStr').text('(' + result.userInfo.totalReservCnt + ')');
@@ -558,43 +566,4 @@ function minus() {
 function plus() {
 	var n = Number(document.getElementById('numberStr').innerText);
 	document.getElementById('numberStr').textContent = n + 1;
-}
-
-function drawProcess(_val) {
-	var canvas = document.getElementById('canvas'),
-	    spanPercent = document.getElementById('percentStr'),
-	    canvasContext = canvas.getContext('2d');
-
-	var posX = canvas.width / 2,
-	    posY = canvas.height / 2,
-	    fps = 1000 / 200,
-	    percent = 0, // 현재 %
-	    onePercentDegree = 360 / 100, // 1% 각도
-	    result = onePercentDegree * _val; // 돌아야하는 각도
-
-	canvasContext.lineCap = 'round';
-	var deegres = 0;
-    var acrInterval = setInterval (function() {
-	  	canvasContext.clearRect( 0, 0, canvas.width, canvas.height );
-	  	percent = deegres / onePercentDegree;
-	  	spanPercent.innerHTML = percent.toFixed();
-
-	  	canvasContext.beginPath();
-	  	canvasContext.arc( posX, posY, 60, (Math.PI/180) * 270, (Math.PI/180) * (270 + 360) );
-	  	canvasContext.strokeStyle = '#ccc';
-	  	canvasContext.lineWidth = '3';
-	  	canvasContext.stroke();
-
-	  	canvasContext.beginPath();
-	  	canvasContext.strokeStyle = '#ff7860';
-	  	canvasContext.lineWidth = '6';
-	  	canvasContext.arc( posX, posY, 60, (Math.PI/180) * 270, (Math.PI/180) * (270 + deegres) );
-	  	canvasContext.stroke();
-
-		deegres++;
-
-		// 정해진 각도가 되면 타이머 탈출
-	  	if( deegres >= result )
-			clearInterval(acrInterval);
-	}, 5);
 }

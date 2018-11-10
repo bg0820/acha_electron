@@ -94,6 +94,29 @@
     border-radius: inherit;
 }
 
+.i_edit {
+	background: url(../img/setting_edit.svg) no-repeat center center;
+    background-size: 90%;
+    text-indent: -9999px;
+	display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+}
+
+.i_edit_gray {
+	position: relative;
+	float:right;
+	background: url(../img/edit-gray.svg) no-repeat center center;
+    background-size:70%;
+    text-indent: -9999px;
+	display: block;
+    width: 32px;
+    height: 32px;
+    border-radius: inherit;
+	cursor: pointer;
+}
+
 .icon_setting {
 	background: url(../img/settings.svg) no-repeat center center;
     background-size: 55%;

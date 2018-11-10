@@ -29,14 +29,13 @@ socket.on('userStatusChange', function(data) {
 	addNotification(data, 'first');
 
 	// 사용자가 예약 상태 변경한것만 DB에 기록
-	if(data.type == 'User')
-		notificationWrite(data); // DB에 기록
+	/*if(data.type == 'User')
+		notificationWrite(data); // DB에 기록*/
 });
 
 // 대기중인 알림 가져와서 data.type 이 User 인 경우만 기록
 socket.on('getWaitNotification', function(data) {
 	console.log('noti,', data);
-
 
 	for(var i = 0; i < data.length; i++)
 	{

@@ -1,0 +1,59 @@
+<script language="javascript">
+	var _roadFullAddr;
+	var _entX;
+	var _entY;
+	var success = -1;
+
+	// 27개 파라미터
+	function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr,jibunAddr,zipNo,admCd,rnMgtSn,bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo,entX,entY){
+		_roadFullAddr = roadFullAddr; // 풀 도로명 주소
+		_roadAddr = roadAddrPart1; // 도로명 주소
+		_detailAddress = addrDetail; // 상세주소
+
+		_entX = entX; // 좌표 x
+		_entY = entY; // 좌표 y
+		success = 1;
+		document.getElementById('addressMsg').innerHTML = roadFullAddr;
+	}
+
+	function goPopup(){
+		// 주소검색을 수행할 팝업 페이지를 호출합니다.
+		// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrCoordUrl.do)를 호출하게 됩니다.
+		var pop = window.open("jusoPopup.html","pop","width=570,height=420, scrollbars=yes, resizable=yes");
+	}
+</script>
+
+<div class="setting_section">
+	<p class="item_title">매장 이름</p>
+	<input type="text" id="storename" maxlength="50" placeholder="매장 이름">
+
+
+	<p class="item_title">매장 전화번호</p>
+	<input type="text" id="storePhoneNumber" maxlength="20" placeholder="매장 전화번호">
+
+
+	<p class="item_title">매장 지점장 전화번호</p>
+	<input type="text" id="storeCEOPhoneNumber" maxlength="20" placeholder="매장 지점장 전화번호">
+
+
+	<p class="item_title">매장 주소</p>
+	<input type="text" id="address" placeholder="매장 주소">
+	<!-- <a href="javascript:goPopup();"> -->
+		<div class="button address">
+			주소 찾기
+		</div>
+	<!-- </a> -->
+</div>
+
+<div class="setting_section_title">
+	세부 설정
+</div>
+<hr class="gray">
+<div class="setting_section">
+	<p class="item_title have_desc">피드백 보내기 여부</p>
+	<p class="item_desc">고객에게 예약 방문 후 매장의 피드백 설문조사 를 보냅니다.</p>
+	<label class="switch">
+		<input type="checkbox" id="reservNameSelect">
+		<span class="slider round"></span>
+	</label>
+</div>

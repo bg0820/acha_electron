@@ -1,21 +1,80 @@
+
+<div class="subMenu">
+	<div class="header flexcenter">
+		<span id="storeName" class="storeName">하울의 움직이는 이탈리아</span>
+		<div class="hr_wrap">
+			<hr class="white"/>
+		</div>
+	</div>
+
+	<!--
+	<div class="header setting_header flexcenter">
+		<span id="storeName" class="storeName">하울의 움직이는 이탈리아</span>
+		<div class="line setting_header">
+			<hr/>
+		</div>
+	</div>
+	-->
+
+	<div class="setting_menu">
+
+		<a href="javascript:setting_store()">
+			<div class="setting_menu_item">
+				매장 설정
+			</div>
+		</a>
+		<a href="javascript:setting_reserv()">
+			<div class="setting_menu_item">
+				예약 설정
+			</div>
+		</a>
+		<a href="javascript:setting_alarmTalk()">
+			<div class="setting_menu_item">
+				알림톡 설정
+			</div>
+		</a>
+		<a href="javascript:setting_table()">
+			<div class="setting_menu_item">
+				테이블 설정
+			</div>
+		</a>
+
+	</div>
+	<!-- <ul class="setting_menu">
+		<li>매장 설정</li>
+		<li>알림톡 설정</li>
+		<li>테이블 설정</li>
+	</ul> -->
+</div>
+
+
+<div class="setting_content">
+	<div class="setting_content_title_area">
+		<p id="setting_content_title">
+			매장 설정
+		</p>
+
+		<a href="javascript:close()"><span id="close" class="setting_close">×</span></a>
+	</div>
+
+	<hr class="red"/>
+	<div id="setting_content_item">
+	</div>
+	<div class="setting_button_wrap">
+		<a href="javascript:cancel();"><div class="button float cancel">취소</div></a>
+		<a href="javascript:reserv();"><div class="button float">수정</div></a>
+	</div>
+</div>
+<!--
+<div id='seclectPopupMenu' class="seclectPopupMenu">
+
+</div>
+
 <div class="modal_title_area">
 	<a href="javascript:close()"><span id="close" class="modal_close">&times;</span></a>
-	<div id="modalTitleStr" class="modal_title_str">아남타워 - 매장 관리</div>
+	<div id="modalTitleStr" class="modal_title_str"></div>
 </div>
 <hr>
-<p class="sectionTitle">매장 설정</p>
-<div class="store_setting_section">
-	<div class="leftSection">
-		<input type="text" id="storeName" maxlength="20" placeholder="매장 이름 입력">
-	</div>
-
-	<div class="rightSection">
-		<input type="text" id="storeTellNumber" maxlength="13" placeholder="매장 연락처, (-) 없이 입력해주세요.">
-	</div>
-
-</div>
-
-<hr class="sectionHr">
 <p class="sectionTitle">알림톡 설정</p>
 <div class="alarm_talk_section">
 	<div class="leftSection">
@@ -41,12 +100,31 @@
 		</div>
 	</div>
 	<div class="rightSection" style="padding: 0px 15px 15px 15px;">
-		<div class="talk_refresh_label">알림톡 발송 주기</div>
+		<div class="talk_refresh_label">
+			알림톡 발송 주기
+			<i class="i_edit_gray"></i>
+		</div>
+
 		<div class="talk_refresh_select_box">
-			
+
 		</div>
 	</div>
 </div>
 
-<a href="javascript:cancel();"><div class="button cancel">취소</div></a>
-<a href="javascript:reserv();"><div class="button">수정</div></a>
+<hr class="sectionHr">
+<p class="sectionTitle">
+	테이블 설정
+	<i class="i_edit_gray"></i>
+</p>
+<p class="i_edit"></p>
+<div class="table_setting_section">
+	<div class="table_box_wrap">
+		<div class="tableBox">
+			<ul id="tableList">
+
+			</ul>
+		</div>
+	</div>
+</div>
+
+-->

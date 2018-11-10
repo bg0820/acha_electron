@@ -16,7 +16,8 @@ table, td, tr {
 
 html, body {
 	width: 100%;
-	min-width: 800px;
+	min-width: 1024px;
+	min-height: 768px;
 	height: 100%;
 	overflow: hidden;
 }
@@ -96,17 +97,14 @@ html, body {
 	height: 150px;
 }
 
-.subMenu .storeNameArea {
-	height: 100%;
-}
-
 .subMenu .BtnArea {
 	height: 55px;
 
 }
 
 .subMenu .header .storeName {
-	font-size: 30pt;
+	padding: 10px;
+	font-size: 1.5rem;
 	color: white;
 	text-align: center;
 }
@@ -300,16 +298,16 @@ html, body {
 }
 
 .reservInfo {
-	position: absolute;
-
+	position: relative;
 	background: #FFD553;
-	width: 180px;
-	height: 65px;
+	width: 100%;
+	height: 100%;
+	/*width: calc(90px * 3);
+	height: 100%;*/
 	font-size: 15pt;
 	color: #FFF;
 	font-weight: 700;
 	text-align: center;
-	line-height: 65px;
 	cursor: pointer;
 }
 
@@ -317,6 +315,8 @@ html, body {
 .reservTimeTable .noshow { background: #FF7370 !important; }
 .reservTimeTable .reserved { background: #54A6E5 !important; }
 .reservTimeTable .reservwait { background: #AAA !important; }
+
+
 
 /*
 .reservInfo .reservName {
