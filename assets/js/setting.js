@@ -34,6 +34,14 @@ function setting_table() {
 	});
 }
 
+function setting_preorder() {
+
+}
+
+function setting_food_menu() {
+
+}
+
 function show(_url) {
 	return new Promise(function(resolve, reject) {
 		$.ajax({

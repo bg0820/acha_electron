@@ -4,15 +4,25 @@ $(document).ready(function() {
 		$('#noti').removeClass('notification');
 		var clickBack = document.getElementById('clickBackground');
 		var alertView = document.getElementById('alertModal');
+
 		clickBack.style.display = 'block';
 		alertView.style.display = 'inline-block';
+
+	});
+
+	$('#search').click(function() {
+		var clickBack = document.getElementById('clickBackground');
+		var searchModal = document.getElementById('searchModal');
+		
+		clickBack.style.display = 'block';
+		searchModal.style.display = 'inline-block';
 	});
 
 	//
 	$('#settings').click(function() {
 		showSetting('assets/modalView/ajax-settings.html').then(function(result) {
 			$('#modalTitleStr').text(storeSetting.storeName + ' - 매장 관리');
-	
+
 			setting_store();
 		});
 	});

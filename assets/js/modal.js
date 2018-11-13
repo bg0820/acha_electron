@@ -219,6 +219,10 @@ function clickBackgroundClose()
 {
 	var clickBack = document.getElementById('clickBackground');
 	var alertModal = document.getElementById('alertModal');
+	var contextMenu = document.getElementById('contextMenu');
+	var searchModal = document.getElementById('searchModal');
+	contextMenu.style.display = 'none';
+	searchModal.style.display = 'none';
 	clickBack.style.display = 'none';
 	alertModal.style.display = 'none';
 }

@@ -1,0 +1,45 @@
+<div class="noti_title_area">
+	<a href="javascript:clickBackgroundClose()"><span id="close" class="modal_close">&times;</span></a>
+	<div id="modalTitleStr" class="modal_title_str">예약/사용자 검색</div>
+</div>
+
+<div class="search_bar">
+	<input id="search_input" class="search" placeholder="핸드폰 번호 / 고객 이름">
+	<a href="javascript:search()">
+		<div class="button search">검색</div>
+	</a>
+</div>
+<div class="infoBar search">
+	<!-- <p id="infoMsg" class="infoMsg"></p> -->
+	<div class="statistics">
+		<div class="statisticsCount">
+			<span>예약 횟수</span>
+			<span id="storeReservStr" class="storeReservStr">0</span>
+			<span id="totalReservStr" class="totalReservStr">(0)</span>
+		</div>
+		<div class="statisticsCount">
+			<span>방문 횟수</span>
+			<span id="storeVisitStr" class="storeVisitStr">0</span>
+		</div>
+		<div class="statisticsCount">
+			<span>취소 횟수</span>
+			<span id="storeCancelStr" class="storeCancelStr">0</span>
+		</div>
+		<div class="statisticsCount end">
+			<span>노쇼 횟수</span>
+			<span id="storeNoshowStr" class="storeNoshowStr">0</span>
+			<span id="totalNoshowStr" class="totalNoshowStr">(0)</span>
+		</div>
+	</div>
+</div>
+
+<!--
+<div class="alert_sort">
+	<ul id='alertSortMenu'>
+	   <li type='all' class="select">전체</li>
+	   <li type='reserved'>예약 확정</li>
+	   <li type='usercancel'>예약취소</li>
+	   <li type='notice'>공지</li>
+   </ul>
+</div>
+-->

@@ -5,6 +5,22 @@ let managers = [];
 let alarmInterval = [];
 let storeSetting;
 
+
+function search()
+{
+	var param = {
+		token: cookies.token,
+		phoneNumber: $('#search_input').val(),
+		name: $('#search_input').val()
+	}
+	console.log(param);
+
+
+	requestAjaxAsync('http://test.acha.io:3000/store/reserv/search', 'GET', param).then(function(result) {
+		console.log(result);
+	});
+}
+
 // 10초마다 refresh
 setInterval(currentTimeBar, 10000);
 
@@ -21,6 +37,9 @@ function indexLoad()
 
 		// 알림창 초기 세팅
 		initAlertView();
+
+		// 검색창 초기 세팅
+		initSearchView();
 		// 최신 알림정보 15개 가져오기
 		getAlertItems();
 
@@ -84,6 +103,22 @@ function initAlertView() {
 	dataType: 'html', // xml, json, script, html
 		success: function(result) {
 			document.getElementById('alertModal').innerHTML = result;
+		}, // 요청 완료 시
+		error: function(error) {
+			alert('문의 주세요(010-9291-9215)', alert);
+		} // 요청 실패
+	});
+}
+
+function initSearchView() {
+	$.ajax({
+	url: 'assets/modalView/ajax-search.html', // 요청 할 주소
+	async: false, // false 일 경우 동기 요청으로 변경
+	type: 'GET', // GET, PUT
+	data: {}, // 전송할 데이터
+	dataType: 'html', // xml, json, script, html
+		success: function(result) {
+			document.getElementById('searchModal').innerHTML = result;
 		}, // 요청 완료 시
 		error: function(error) {
 			alert('문의 주세요(010-9291-9215)', alert);
