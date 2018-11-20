@@ -1,3 +1,26 @@
+var _roadFullAddr;
+var _entX;
+var _entY;
+var success = -1;
+
+// 27개 파라미터
+function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr,jibunAddr,zipNo,admCd,rnMgtSn,bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo,entX,entY){
+	_roadFullAddr = roadFullAddr; // 풀 도로명 주소
+	_roadAddr = roadAddrPart1; // 도로명 주소
+	_detailAddress = addrDetail; // 상세주소
+
+	_entX = entX; // 좌표 x
+	_entY = entY; // 좌표 y
+	success = 1;
+	document.getElementById('address').value = roadFullAddr;
+}
+
+function goPopup(){
+	// 주소검색을 수행할 팝업 페이지를 호출합니다.
+	// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrCoordUrl.do)를 호출하게 됩니다.
+	var pop = window.open("http://test.acha.io:3000/store/registerJuso/","pop","width=570,height=420, scrollbars=yes, resizable=yes");
+}
+
 function setting_store() {
 	show('assets/modalView/setting/ajax-setting-store.html').then(function(result) {
 		$('#setting_content_title').text('매장 설정');
@@ -28,9 +51,80 @@ function setting_table() {
 		for(var i = 0; i < storeSetting.targets.length; i++)
 		{
 			var target = storeSetting.targets[i];
-			$('#tableList').append('<li>' + target.targetName + '</li>');
+			$('#tableList').append('<li tableIdx="' + i + '"tableItem="' + target.targetName + '">' + target.targetName + '</li>');
 		}
 
+		$('#table_edit').click(function() {
+			$.ajax({
+				url: 'assets/modalView/contextMenu/table_add.html', // 요청 할 주소
+				async: true, // false 일 경우 동기 요청으로 변경
+				type: 'GET', // GET, PUT
+				data: {}, // 전송할 데이터
+				dataType: 'html', // xml, json, script, html
+				success: function(result) {
+					var elem = document.getElementById('seclectPopupMenu');
+					elem.innerHTML = result;
+
+					// 화면 중앙에 위치 시키기
+					var left = (document.body.scrollWidth - 520) / 2;
+					var top = (document.body.scrollHeight - 400) / 2;
+
+					$('#seclectPopupMenu').css('left', left);
+					$('#seclectPopupMenu').css('top', top);
+					$('#seclectPopupMenu').show();
+
+					// 테이블 init
+					// tableInit();
+				}, // 요청 완료 시
+				error: function(error) {
+					alert('문의 주세요(010-9291-9215)', alert);
+				} // 요청 실패
+			});
+		});
+	});
+}
+
+function setting_apply()
+{
+	// 테이블 설정 확정
+	tableApply();
+	close();
+}
+
+function storeApply() {
+
+}
+
+function tableAdd()
+{
+	var tableJson = {
+		targetName: $('#tableName').val(),
+		targetNumber: Number($('#numberStr').text()),
+		targetMemo: $('#tableMemo').val()
+	};
+
+	storeSetting.targets.push(tableJson);
+
+	console.log(storeSetting.targets);
+	setting_table();
+}
+
+function tableApply() {
+	$.ajax({
+	url: 'http://test.acha.io:3000/store/setting/targets', // 요청 할 주소
+	async: true, // false 일 경우 동기 요청으로 변경
+	type: 'POST', // GET, PUT
+	data: {
+		token: cookies.token,
+		targets: storeSetting.targets
+	}, // 전송할 데이a터
+	dataType: 'html', // xml, json, script, html
+		success: function(result) {
+
+		}, // 요청 완료 시
+		error: function(error) {
+			alert('문의 주세요(010-9291-9215)', alert);
+		} // 요청 실패
 	});
 }
 

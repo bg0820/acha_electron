@@ -57,6 +57,19 @@
     background-color: #fff;
 }
 
+.menuItem.delete {
+	background: url(../img/delete.svg) no-repeat 5%;
+	background-size: 15%;
+	padding: 0.5em 0em 0.5em 2em;
+}
+
+.menuItem.delete:hover {
+	background: url(../img/delete-white.svg) no-repeat 5%;
+	background-size: 15%;
+    color: white;
+    background-color: #2980b9;
+}
+
 .menuItem.edit {
 	background: url(../img/edit.svg) no-repeat 5%;
 	background-size: 15%;
@@ -134,9 +147,17 @@
 
 .alert_list {position: relative; width: 100%; height: calc(100% - 105px); white-space: nowrap; overflow-y: scroll; padding: 0 20px 20px; }
 
-.alert_list_item .reserved { background-color: #ff7860; }
-.alert_list_item .usercancel { background-color: #ccc; }
+.alert_list.search { height: calc( 100% - 275px); }
+
+.alert_list_item .reserved { background-color: #54A6E5; }
+.alert_list_item .usercancel { background-color: #4a4a4a; }
+.alert_list_item .reservwait { background-color: #AAA; }
+.alert_list_item .storecancel { background-color: #4a4a4a; }
+.alert_list_item .visit { background-color: #00D686; }
+.alert_list_item .noshow { background-color: #FF7370; }
+
 .alert_list_item .notice { background-color: #4a4a4a; }
+
 
 .alert_list_item.disabled { display: none; }
 

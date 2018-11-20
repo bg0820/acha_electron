@@ -36,9 +36,17 @@ function addNotification(data, offset) {
 		var regex = /(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/;
 		phoneNumber = data.phoneNumber.toString().replace(regex, "$1-$2-$3");
 	}
+	else if(data.userPhoneNumber)
+	{
+		var regex = /(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/;
+		phoneNumber = data.userPhoneNumber.toString().replace(regex, "$1-$2-$3");
+	}
+
+
+	/*
 	var ddayStr = "D-Day";
 	if(diffDay > 0)
-		ddayStr = "D-" + diffDay;
+		ddayStr = "D-" + diffDay;*/
 
 	var reservDateStr = dateForm(reservTime);
 	var dateStr = dateForm(new Date(_timestamp));

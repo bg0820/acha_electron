@@ -10,15 +10,85 @@ function search()
 {
 	var param = {
 		token: cookies.token,
-		phoneNumber: $('#search_input').val(),
-		name: $('#search_input').val()
+		query: $('#search_input').val()
 	}
-	console.log(param);
-
 
 	requestAjaxAsync('http://test.acha.io:3000/store/reserv/search', 'GET', param).then(function(result) {
+		$('#searchScrollWrap').html("");
 		console.log(result);
+		for(var i = 0 ; i < result.reservList.length; i++)
+		{
+			var html = search_html(result.reservList[i]);
+			$('#searchScrollWrap').prepend(html);
+		}
+		checkPhoneNumber(document.getElementById('search_input'));
 	});
+}
+
+function search_html(reserv)
+{
+	var phoneNumber = '';
+
+	if(reserv.phoneNumber)
+	{
+		var regex = /(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/;
+		phoneNumber = reserv.phoneNumber.toString().replace(regex, "$1-$2-$3");
+	}
+
+	var reservTime = new Date(reserv.reservTime);
+	var reservDateStr = dateForm(reservTime);
+	//var dateStr = dateForm(new Date(_timestamp));
+	var reservStatus = reserv.reservStatus;
+
+	var stateStr = "";
+	if(reservStatus == 'reserved')
+		stateStr = "예약확정"
+	else if(reservStatus == 'usercancel')
+		stateStr = "고객취소";
+	else if(reservStatus == "reservwait")
+		stateStr = "예약대기";
+	else if(reservStatus == "storecancel")
+		stateStr = "매장취소";
+	else if(reservStatus == "visit")
+		stateStr = "방문";
+	else if(reservStatus == "noshow")
+		stateStr = "노쇼";
+
+	var alertListItem = "";
+	alertListItem += "<div type=\"" + reserv.reservStatus +  "\" class=\"alert_list_item\">";
+	/* alertListItem += "<div class=\"alert_top\">";
+	alertListItem += "<div class=\"time\">" + "</div>"; // 요기
+	alertListItem += "</div>"; */
+	alertListItem += "<div class=\"alert_content\">";
+	alertListItem += "<div class=\"flexcenter_align\">";
+	alertListItem += "<div class=\"alert_state flexcenter " + reserv.reservStatus +"\">" + stateStr + "</div>";
+	alertListItem += "</div>";
+	alertListItem += "<div class=\"alert_msg_area\">";
+	alertListItem += "<div class=\"alert_msg\">";
+	//alertListItem += "<div class=\"remain_day\">" + ddayStr + "</div>";
+	alertListItem += "<div class=\"reserv_name_str\">" + reserv.reservName + "</div>";
+	alertListItem += "<div class=\"reserv_phoneNumber\">" + phoneNumber + "</div>";
+
+	alertListItem += "</div>";
+	alertListItem += "<div class=\"alert_msg_detail\">";
+	alertListItem += "<div class=\"reserv_time\">";
+	alertListItem += "<i class=\"time_icon\"></i>";
+	alertListItem += "<span>" + reservDateStr + "</span>";
+	alertListItem += "</div>";
+	alertListItem += "<div class=\"reserv_number\">";
+	alertListItem += "<i class=\"reserv_number_icon\"></i>";
+	alertListItem += "<span>" + reserv.reservNumber + "</span>";
+	alertListItem += "</div>";
+	alertListItem += "<div class=\"position_name\">";
+	alertListItem += "<i class=\"table_icon\"></i>";
+	alertListItem += "<span>"  + reserv.reservTarget + "</span>";
+	alertListItem += "</div>";
+	alertListItem += "</div>";
+	alertListItem += "</div>";
+	alertListItem += "</div>";
+	alertListItem += "</div>";
+
+	return alertListItem;
 }
 
 // 10초마다 refresh
@@ -209,10 +279,15 @@ function attachReservToTable(json)
 		var div = "<div reservStatus='" + reserv.reservStatus + "' reservId='" + reserv.reservUUID + "' class='flexcenter reservInfo " + reserv.reservStatus + "'>" + viewName + "</div>";
 		for(var j = 0 ; j< reserv.reservTarget.length; j++)
 		{
-			var tableItem = $('*[table-number="' + reserv.reservTarget[j] + '-' + date.getHours() + minstr + '"]');
-			tableItem.html(div);
+			if(!(reserv.reservStatus == 'usercancel' || reserv.reservStatus == 'storecancel'))
+			{
+				var tableItem = $('*[table-number="' + reserv.reservTarget[j] + '-' + date.getHours() + minstr + '"]');
+				tableItem.html(div);
 
-			$($(tableItem)[0].children[0]).css('width', widthReserv);
+				// TODO : 테이블이 없을경우 여기서 에러남
+				$($(tableItem)[0].children[0]).css('width', widthReserv);
+			}
+
 
 			// 예약이 몇분짜리인지 판별후 뒤에 테이블 지우기
 			/*for(var k = 2; k < reservTimeSpan; k++)

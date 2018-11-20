@@ -1,5 +1,6 @@
 
 $(document).ready(function() {
+
 	$('#alert').click(function() {
 		$('#noti').removeClass('notification');
 		var clickBack = document.getElementById('clickBackground');
@@ -13,7 +14,7 @@ $(document).ready(function() {
 	$('#search').click(function() {
 		var clickBack = document.getElementById('clickBackground');
 		var searchModal = document.getElementById('searchModal');
-		
+
 		clickBack.style.display = 'block';
 		searchModal.style.display = 'inline-block';
 	});
@@ -34,17 +35,18 @@ $(document).ready(function() {
 });
 
 window.onclick = function(event) {
+	var eventTarget = event.target;
+	var jEventTarget = $(event.target);
+
 	// modal 백그라운드 클릭시 모달창 닫기
 	var modal = document.getElementById('modalBackground');
-    if (event.target == modal)
+    if (eventTarget == modal)
         modal.style.display = "none";
 
 	// 컨텍스트 메뉴 배경 클릭시 컨텍스트 메뉴창 닫기
 	var contextBack = document.getElementById('clickBackground');
-	if(event.target == contextBack)
-	{
+	if(eventTarget == contextBack)
 		clickBackgroundClose();
-	}
 
 	$('.calendar-day').bind('click', function() {
 		var clickDate = $(this).attr('date-number');
@@ -89,12 +91,46 @@ window.onclick = function(event) {
 		$("#alertSortMenu li" ).unbind("click");
 	});
 
-	// 테이블에 대한 ContexMenu
-	var reservTableItem = $(event.target);
-	if(reservTableItem.attr('table-number'))
+	// 테이블 추가에 대한 ContextMenu
+	if(jEventTarget.attr('tableItem'))
 	{
 		// 예약 되어있지 않은 테이블만
-		if(!event.target.firstElementChild)
+		if(!eventTarget.firstElementChild)
+		{
+			var contextMenu = document.getElementById('contextMenu');
+
+			contextBack.style.display = 'block';
+			contextMenu.style.display = 'inline-block';
+			var contextItem = "<li type='add' class='menuItem delete'><span>테이블 삭제</span></li>";
+			$(contextMenu).html(contextItem);
+
+			// 오른쪽 사이즈 넘음, width = 200px 임
+			if(document.body.clientWidth - contextMenu.offsetWidth < event.clientX)
+				contextMenu.style.left = (event.clientX - contextMenu.offsetWidth) + 'px';
+			else
+				contextMenu.style.left = event.clientX + 'px';
+
+			// 아래쪽 사이즈 넘음
+			if(document.body.clientHeight - contextMenu.offsetHeight < event.clientY)
+				contextMenu.style.top = (event.clientY - contextMenu.offsetHeight) + 'px';
+			else
+				contextMenu.style.top = event.clientY + 'px'
+
+			$("#contextMenu li" ).bind( "click", function() {
+				storeSetting.targets.splice(jEventTarget.attr('tableIdx'), 1);
+				setting_table();
+
+				$("#contextMenu li" ).unbind("click");
+				contextBack.style.display = "none";
+			});
+		}
+	}
+
+	// 테이블에 대한 ContexMenu
+	if(jEventTarget.attr('table-number'))
+	{
+		// 예약 되어있지 않은 테이블만
+		if(!eventTarget.firstElementChild)
 		{
 			var contextMenu = document.getElementById('contextMenu');
 
@@ -115,7 +151,7 @@ window.onclick = function(event) {
 			else
 				contextMenu.style.top = event.clientY + 'px'
 
-			var tableNumber = $(event.target).attr('table-number').split('-');
+			var tableNumber = jEventTarget.attr('table-number').split('-');
 			var tableName = tableNumber[0];
 			var time = tableNumber[1];
 			var timeSplit = time.split('.');
@@ -135,8 +171,7 @@ window.onclick = function(event) {
 	}
 
 	// 예약에 대한 ContextMenu
-	var reservItem = $(event.target);
-	if(reservItem.attr('reservId'))
+	if(jEventTarget.attr('reservId'))
 	{
 		var contextMenu = document.getElementById('contextMenu');
 
@@ -157,10 +192,10 @@ window.onclick = function(event) {
 		else
 			contextMenu.style.top = event.clientY + 'px';
 
-		var _reservId = $(reservItem).attr('reservId');
+		var _reservId = jEventTarget.attr('reservId');
 
 		// 예약 상태 가져와서 상태 메시지 띄워주기
-		switch($(reservItem).attr('reservStatus'))
+		switch(jEventTarget.attr('reservStatus'))
 		{
 			case 'reservwait':
 				$('#statusStr').text('확정 대기');

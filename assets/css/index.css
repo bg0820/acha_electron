@@ -334,7 +334,7 @@ input.search
 .infoBar.search {
 	float: left;
 	width: 100%;
-	height: 20%;
+	height: 170px;
 	border-bottom: 1px solid #ccc;
 }
 

@@ -1,0 +1,26 @@
+<div class="modal_title_area">
+	<a href="javascript:seclectPopupMenuClose()"><span id="close" class="modal_close">&times;</span></a>
+	<div class="modal_title_str">테이블 추가</div>
+</div>
+<hr>
+<div style="padding: 10px 10px 0px 10px">
+	<p class="item_title">테이블 이름</p>
+	<input id="tableName" placeholder="테이블 이름">
+	<p class="item_title">테이블 인원</p>
+	<div class="numberSelect">
+		<div id="numberStr" class="numberStr flexcenter">1</div>
+		<div onclick="minus();" class="minus flexcenter">-</div>
+		<div onclick="plus();"  class="plus flexcenter">+</div>
+	</div>
+	<!-- <input id="tableNumber" placeholder="테이블 인원"> -->
+	<p class="item_title">테이블 메모</p>
+	<input id="tableMemo" placeholder="테이블 메모">
+</div>
+<!--
+<div class="selectBox">
+	<ul id="selectList">
+
+	</ul>
+</div>-->
+<hr>
+<a href="javascript:tableAdd();"><div class="button popUpSelect">테이블 추가</div></a>
